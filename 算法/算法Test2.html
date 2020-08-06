@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    var arr = [1, 4, 5, 2, 7, 6, 0, 9, 8, 3]
+
+    function swap(arr, i, j) {
+      var temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
+    }
+
+    // 冒泡排序
+    function BubbleSort(arr) {
+      for (var i = 0; i < arr.length - 1; i++) {
+        for (var j = 0; j < arr.length - 1; j++) {
+          if (arr[j] > arr[j + 1]) {
+            swap(arr, j, j + 1)
+          }
+        }
+      }
+      return arr
+    }
+    // console.log(BubbleSort(arr))
+
+    // 选择排序
+    function SelectSort(arr) {
+      var minIndex
+      for (var i = 0; i < arr.length; i++) {
+        minIndex = i
+        for (var j = i + 1; j < arr.length; j++) {
+          if (arr[j] < arr[minIndex]) {
+            minIndex = j
+          }
+        }
+        if (minIndex !== i) {
+          swap(arr, i, minIndex)
+        }
+      }
+      return arr
+    }
+    // console.log(SelectSort(arr))
+
+    // 归并排序
+    function MergeSort(arr) {
+      var len = arr.length
+      if (len < 2) {
+        return arr
+      }
+      var middle = Math.floor(len / 2)
+      var left = arr.slice(0, middle)
+      var right = arr.slice(middle)
+      return merge(MergeSort(left), MergeSort(right))
+    }
+
+    function merge(left, right) {
+      var result = []
+
+      while (left.length > 0 && right.length > 0) {
+        if (left[0] <= right[0]) {
+          result.push(left.shift())
+        } else {
+          result.push(right.shift())
+        }
+      }
+
+      while (left.length) {
+        result.push(left.shift())
+      }
+
+      while (right.length) {
+        result.push(right.shift())
+      }
+
+      return result
+    }
+    console.log(MergeSort(arr))
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

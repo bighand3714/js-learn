@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  var arr = [1, 4, 5, 2, 7, 6, 0, 9, 8, 3]
+
+  function temp(arr, i, j) {
+    var temp
+    temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+  }
+
+  // 冒泡排序
+  function BubbleSort(arr) {
+    for (var i = 0; i < arr.length - 1; i++) {
+      for (var j = arr.length - 1; j > i; j--) {
+        if (arr[j] < arr[j - 1]) {
+          temp(arr, j, j - 1)
+        }
+      }
+    }
+    return arr
+  }
+
+  // console.log(BubbleSort(arr))
+
+  // 选择排序
+  function SelectSort(arr) {
+    var minIndex
+    for (var i = 0; i < arr.length - 1; i++) {
+      minIndex = i
+      for (var j = i + 1; j < arr.length; j++) {
+        if (arr[j] < arr[minIndex]) {
+          minIndex = j
+        }
+      }
+      if (minIndex !== i) {
+        temp(arr, i, minIndex)
+      }
+    }
+    return arr
+  }
+  // console.log(SelectSort(arr))
+
+  // 插入排序
+  function InsertSort(arr) {
+    var preIndex
+    var current
+    for (var i = 1; i < arr.length; i++) {
+      preIndex = i - 1
+      current = arr[i]
+      while (preIndex >= 0 && arr[preIndex] > current) {
+        arr[preIndex + 1] = arr[preIndex]
+        preIndex--
+      }
+      arr[preIndex + 1] = current
+    }
+    return arr
+  }
+  // console.log(InsertSort(arr))
+
+  // 希尔排序
+  function ShellSort(arr) {
+    var len = arr.length
+    var temp
+    var gap = 1
+    while (gap < len / 3) {
+      gap = gap * 3 + 1
+    }
+    for (gap; gap > 0; gap = Math.floor(gap / 3)) {
+      for (var i = gap; i < len; i++) {
+        temp = arr[i]
+        for (var j = i-gap; j > 0 && arr[j] > temp; j-=gap) {
+          arr[j+gap] = arr[j]
+        }
+        arr[j+gap] = temp
+      }
+    }
+    return arr
+  }
+  // console.log(ShellSort(arr))
+
+  // 归并排序
+  function MergeSort(arr) {
+    var len = arr.length
+    if (len < 2) {
+      return arr
+    }
+    var middle = Math.floor(len / 2)
+    var left = arr.slice(0, middle)
+    var right = arr.slice(middle)
+    return merge(MergeSort(left), MergeSort(right))
+  }
+
+  function merge(left, right) {
+    var result = []
+
+    while (left.length > 0 && right.length > 0) {
+      if (left[0] <= right[0]) {
+        result.push(left.shift())
+      } else {
+        result.push(right.shift())
+      }
+    }
+
+    while (left.length) {
+      result.push(left.shift())
+    }
+
+    while (right.length) {
+      result.push(right.shift())
+    }
+
+    return result
+  }
+
+  console.log(MergeSort(arr))
+
+</script>
+
+<body>
+
+</body>
+
+</html>

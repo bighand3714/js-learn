@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function SheelSort(arr) {
+
+      var temp = 0;
+      var len = arr && arr.length;
+      var incre = len;
+
+      while (true) {
+        incre = incre / 2;
+
+        for (var k = 0; k < incre; k++) {    //根据增量分为若干子序列
+          var count = 0;
+          for (var i = k + incre; i < len; i += incre) {
+            count++;
+            for (var j = i; j > k; j -= incre) {
+              if (arr[j] < arr[j - incre]) {
+                temp = arr[j - incre];
+                arr[j - incre] = arr[j];
+                arr[j] = temp;
+              } else {
+                break;
+              }
+            }
+
+          }
+          console.log('根据增量' + incre + ',将数组分为' + count)
+        }
+
+        if (incre <= 1) {
+          break;
+        }
+      }
+      return arr
+    }
+
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    SheelSort(arr)
+    console.log(arr)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

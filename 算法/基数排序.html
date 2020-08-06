@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function RadixLSDSort(arr, digit) {
+      const radix = 10
+      var i = 0
+      var j = 0
+      var count = Array(radix)
+      var len = arr.length
+      var bucket = Array(len)
+
+      for (var d = 0; d < digit; d++) {
+        for (i = 0; i < radix; i++) {
+          count[i] = 0
+        }
+        for (i = 0; i < len; i++) {
+          j = getDigit(arr[i], d)
+          count[j]++
+        }
+        for (i = 1; i < radix; i++) {
+          count[i] = count[i] + count[i - 1]
+        }
+        for (i = len - 1; i >= 0; i--) {
+          j = getDigit(arr[i], d)
+          bucket[count[j] - 1] = arr[i]
+          count[j]--
+        }
+        for (i = 0; i < len; i++) {
+          arr[i] = bucket[i]
+        }
+      }
+      return arr
+    }
+
+    function getDigit(x, d) {
+      var a = [1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000]
+      return (Math.floor(x / a[d]) % 10)
+    }
+    
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    var a = RadixLSDSort(arr, 100)
+    console.log(a)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

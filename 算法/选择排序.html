@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择排序</title>
+  <script>
+    // 1、基本思想与过程：　　
+    // 在长度为N的无序数组中，第一次遍历n-1个数，找到最小的数值与第一个元素交换；
+    // 第二次遍历n-2个数，找到最小的数值与第二个元素交换；
+    // 。。。第n-1次遍历，找到最小的数值与第n-1个元素交换，排序完成。
+    // 时间复杂度：O(n2)
+    function SelectSort(arr) {
+      var len = arr && arr.length
+      for (var i = 0; i < len - 1; i++) {
+        var minIndex = i
+        for (var j = i + 1; j < len; j++) {
+          if (arr[j] < arr[minIndex]) {
+            minIndex = j
+          }
+        }
+        if (minIndex != i) {
+          var temp = arr[i]
+          arr[i] = arr[minIndex]
+          arr[minIndex] = temp
+        }
+      }
+      return arr
+    }
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    SelectSort(arr)
+    console.log(arr)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

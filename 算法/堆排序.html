@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function HeapSort(arr) {
+      buildMaxHeap(arr)
+      for (var i = arr.length - 1; i >= 0; i--) {
+        swap(arr, 0, i)
+        maxHeapify(arr, 0, i)
+      }
+      return arr
+    }
+
+    function swap(a, i, j) {
+      var temp = a[i]
+      a[i] = a[j]
+      a[j] = temp
+    }
+
+    function buildMaxHeap(arr) {
+      var iParent = Math.floor(arr.length / 2) - 1
+      for (var i = iParent; i >= 0; i--) {
+        maxHeapify(arr, i, arr.length)
+      }
+    }
+
+    function maxHeapify(arr, index, heapSize) {
+      var iMax = index
+      var iLeft = 2 * index + 1
+      var iRight = 2 * (index + 1)
+      if (iLeft < heapSize && arr[iLeft] > arr[iMax]) {
+        iMax = iLeft
+      }
+      if (iRight < heapSize && arr[iRight] > arr[iMax]) {
+        iMax = iRight
+      }
+      if (iMax != index) {
+        swap(arr, iMax, index) 
+        maxHeapify(arr, iMax, heapSize)
+      }
+    }
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    var a = HeapSort(arr)
+    console.log(a)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 节点
+    function Node(element, left, right, parents) {
+      this.element = element
+      this.left = left
+      this.right = right
+      this.parents = parents
+      this.show = function () {
+        return this.element
+      }
+    }
+
+    // 二叉树
+    function BST() {
+      this.root = null
+
+      // 插入节点
+      this.insert = function (element) {
+        let node = new Node(element, null, null)
+        if (this.root === null) {
+          this.root = node
+        } else {
+          let buffer = this.root
+          while (true) {
+            if (node.element > buffer.element) {
+              if (buffer.right === null) {
+                buffer.right = node
+                node.parents = buffer
+                break
+              } else {
+                buffer = buffer.right
+              }
+            }
+            if (node.element <= buffer.element) {
+              if (buffer.left === null) {
+                buffer.left = node
+                node.parents = buffer
+                break
+              } else {
+                buffer = buffer.left
+              }
+            }
+          }
+        }
+      }
+
+      // 先序遍历
+      this.preOrderTraversal = function (node) {
+        if (node === null) {
+          return
+        } else {
+          console.log(node.show())
+          this.preOrderTraversal(node.left)
+          this.preOrderTraversal(node.right)
+        }
+      }
+
+      // 中序遍历
+      this.inOrderTraversal = function (node) {
+        // console.log(node.element)
+        if (node === null) {
+          return
+        } else {
+          this.inOrderTraversal(node.left)
+          console.log(node.show())
+          this.inOrderTraversal(node.right)
+        }
+      }
+
+      // 后续遍历
+      this.postOrderTraversal = function (node) {
+        if (node === null) {
+          return
+        } else {
+          this.postOrderTraversal(node.left)
+          this.postOrderTraversal(node.right)
+          console.log(node.show())
+        }
+      }
+    }
+
+
+    let bst = new BST()
+    bst.insert(23)
+    bst.insert(98)
+    bst.insert(76)
+    bst.insert(1)
+    bst.insert(53)
+    bst.insert(41)
+    bst.insert(42)
+    bst.insert(2)
+
+    bst.preOrderTraversal(bst.root)
+    bst.inOrderTraversal(bst.root)
+    bst.postOrderTraversal(bst.root)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

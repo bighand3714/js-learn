@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function Merger(a, b) {
+      var n = a && a.length
+      var m = b && b.length
+      var c = []
+      var i = 0 
+      var j = 0
+
+      while (i < n && j < m) {
+        if (a[i] < b[j]) {
+          c.push(a[i++])
+        } else {
+          c.push(b[j++])
+        }
+      }
+      
+      while (i < n) {
+        c.push(a[i++])
+      }
+
+      while (j < m) {
+        c.push(b[j++])
+      }
+
+      console.log("将数组",a,'和',b,'合并为',c)
+      return c
+    }
+
+    function MergeSort(arr) {
+      console.log(arr)
+      if (arr.length == 1)
+        return arr
+      
+      var mid = Math.floor(arr.length / 2)
+      var left = arr.slice(0, mid)
+      var right = arr.slice(mid)
+
+      return Merger(MergeSort(left), MergeSort(right))
+    }
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    var a = MergeSort(arr)
+    console.log(a)
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

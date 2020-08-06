@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 1、基本思想与过程：
+
+    // （1）假设前n个数组已经排列完成，
+    // 将第n+1个元素插入其中，即 拿第n+1个元素 与 前n个元素 倒序比较，
+    // 如果 第n+1个元素 小于 其中某元素，将两者交换位置。
+
+    //（2）以此类推，直到最后一个元素插入完成
+    function InsertSort(arr) {
+      var len = arr && arr.length
+      var temp
+      var count = 0;
+      for (var i = 0; i < len - 1; i++) {
+        for (var j = i + 1; j > 0; j--) {
+          if (arr[j] < arr[j - 1]) {
+            temp = arr[j]
+            arr[j] = arr[j - 1]
+            arr[j - 1] = temp
+            count++
+          } else {
+            break
+          }
+        }
+        console.log('第' + i + '轮的比较次数为' + count);
+      }
+      return arr
+    }
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    InsertSort(arr)
+    console.log(arr)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

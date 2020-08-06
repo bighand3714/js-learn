@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" bn-model="msg">
+    <input type="text" bn-model="name">
+    {{msg}}
+    {{name}}
+    <div>test1</div>
+    <div>{{name}}</div>
+  </div>
+  <script>
+    let obj = {
+      msg: new ViewModel('welcome'),
+      name: new ViewModel('Li'),
+    }
+    function ViewModel(data) {
+      this.data = data
+      this.nodes = []
+    }
+    ViewModel.prototype.bindNode = function (node) {
+      this.nodes.push(node)
+      console.log(this.nodes)
+    }
+    ViewModel.prototype.getVal = function () {
+      return this.data
+    }
+    ViewModel.prototype.update = function() {
+      this.nodes.forEach(node => {
+        console.dir(node)
+        if (node.nodeType === 1){
+          node.value = this.data
+        } else {
+          node.textContent = node.my.replace(/\{\{([^}]*)\}\}/g, function() {
+            return obj[arguments[1]].data
+          })
+        }
+      })
+    }
+  </script>
+</body>
+</html>

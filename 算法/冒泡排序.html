@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冒泡排序</title>
+  <script>
+    // 1、基本思想与过程：
+
+    //  从后向前两两比教，大数下沉，小数冒泡，
+    //  一轮比较后，最小数的位置就排好了，在第一个位置。
+    //  重复上述过程，依次将第2.3...n-1个最小数排好位置。
+
+    // 时间复杂度：O(n2)
+    function BubbleSort(arr) {
+      var temp // 临时变量
+      for (var i = 0; i < arr.length - 1; i++) { // 表示趟数，一共arr.length-1次。
+        var count = 0 // 打印用的参数
+        for (var j = arr.length - 1; j > i; j--) {
+          if (arr[j] < arr[j - 1]) {
+            temp = arr[j]
+            arr[j] = arr[j - 1]
+            arr[j - 1] = temp
+            count++
+          }
+        }
+        console.log(`第${i}轮得比较次数为${count}`)
+        // console.log(arr)
+      }
+    }
+
+    function BubbleSort1(arr) {
+      var temp
+      for (var i = 0; i < arr.length - 1; i++) {
+        for (var j = 0; j < arr.length - 1; j++) {
+          if (arr[j] > arr[j + 1]) {
+            temp = arr[j]
+            arr[j] = arr[j + 1]
+            arr[j + 1] = temp
+          }
+        }
+      }
+      return arr
+    }
+
+    // 优化
+    // 方案：设置标志位flag，如果发生了交换flag设置为true；如果没有交换就设置为false。
+    // 这样当一轮比较结束后如果flag仍为false，说明数据的顺序已经排好，没有必要继续进行下去
+    function BubbleBest(arr) {
+      var temp
+      var flag
+      for (var i = 0; i < arr.length - 1; i++) {
+        flag = false
+        var count = 0
+        for (var j = arr.length - 1; j > i; j--) {
+          if (arr[j] < arr[j - 1]) {
+            temp = arr[j]
+            arr[j] = arr[j - 1]
+            arr[j - 1] = temp
+            flag = true
+            count++
+          }
+        }
+        console.log('第' + i + '轮的比较次数为' + count)
+        if (!flag) {
+          console.log(flag)
+          break
+        }
+      }
+      return arr
+    }
+
+    arr = [3, 4, 5, 1, 9, 6, 7, 2, 8, 0]
+    // BubbleSort(arr)
+    // BubbleSort1(arr)
+    BubbleBest(arr)
+    console.log('result', arr)
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
