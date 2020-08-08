@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 父类
+    function Person(name) {  // 给构造函数添加了参数
+      this.name = name
+      this.sum = function() {
+        console.log("function sum: ", this.name)
+      }
+    }
+    Person.prototype.age = 10 // 给构造函数添加了原型属性
+  </script>
+</body>
+</html>
