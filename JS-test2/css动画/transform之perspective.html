@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        div {
+            width: 200px;
+            height: 300px;
+            background-color: darksalmon;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            animation: roan 4s infinite linear;
+        }
+
+        @keyframes roan {
+            0% {
+                transform: perspective(700px) rotateY(0deg)
+            }
+            100% {
+                transform: perspective(700px) rotateY(360deg)
+            }
+        }
+        /* 这个400px是你看着具有3d效果的两边往远处延申至形成一个交点,是这个交点和你div的距离 */
+    </style>
+</head>
+<body>
+    <div>
+        我
+        <br>
+        真
+        <br>
+        困
+        <br>
+        了
+        <br>
+        ！
+    </div>
+</body>
+</html>
