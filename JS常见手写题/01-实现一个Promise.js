@@ -180,3 +180,24 @@ class MyPromise {
     })
   }
 }
+
+
+// pending 准备阶段
+// resolved 成功状态
+// reject 失败状态
+console.log(
+  new MyPromise((resolve, reject) => {
+    resolve('success')
+    reject('fail')
+  }).then(value => {
+    console.log('deal 1')
+  }, reason => {
+    console.log('deal 1-')
+  }).then(value => {
+    console.log('deal 2')
+  }, reason => {
+    console.log('deal 2-')
+  })
+)
+// 微任务队列和宏任务队列以微任务队列为主
+// promise 会生产出微任务
