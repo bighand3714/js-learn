@@ -3,19 +3,19 @@
 // 思路：外层循环控制第 n+1 小的元素，每次循环找出本轮的最小值放到指定位置
 
 //选择排序
-const selectSort=(arr)=>{
- let n=arr.length,min;
- for(let i=0;i<n-1;i++){
-   min=i;
-   for(let j=i+1;j<n;j++){
-     if(arr[j]<arr[min]){
-       min=j;
-     }
-   }
-   let temp=arr[i];
-   arr[i]=arr[min];
-   arr[min]=temp;
- }
- return arr;
+const selectSort = (arr) => {
+  let n = arr.length, min;
+  for (let i = 0; i < n - 1; i++) {
+    min = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    let temp = arr[i];
+    arr[i] = arr[min];
+    arr[min] = temp;
+  }
+  return arr;
 }
-console.log(selectSort([1,6,7,2,3,9,3]));
+console.log(selectSort([1, 6, 7, 2, 3, 9, 3]));
