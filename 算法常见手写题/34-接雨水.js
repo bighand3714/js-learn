@@ -5,25 +5,25 @@
  * @param {number[]} height
  * @return {number}
  */
-var trap = function(height) {
-    if(height.length === 0) return 0;
-    let n = height.length,
-        ans = 0,
-        left = 0,
-        right = n -1,
-        lMax = height[0],
-        rMax = height[n-1];
-    while(left<=right){
-        lMax = Math.max(lMax,height[left]);
-        rMax = Math.max(rMax,height[right]);
+var trap = function (height) {
+  if (height.length === 0) return 0;
+  let n = height.length,
+    ans = 0,
+    left = 0,
+    right = n - 1,
+    lMax = height[0],
+    rMax = height[n - 1];
+  while (left <= right) {
+    lMax = Math.max(lMax, height[left]);
+    rMax = Math.max(rMax, height[right]);
 
-        if(lMax<rMax){
-          ans += lMax - height[left];
-          left++;
-        }else{
-          ans += rMax - height[right];
-          right--;
-        }
+    if (lMax < rMax) {
+      ans += lMax - height[left];
+      left++;
+    } else {
+      ans += rMax - height[right];
+      right--;
     }
-    return ans;
+  }
+  return ans;
 };
