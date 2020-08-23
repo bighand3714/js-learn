@@ -1,2 +1,68 @@
 /* 你的css代码 */
 
+@font-face {
+  font-family: 'ProductSans';
+  src: url('../fonts/ProductSans-Bold.ttf')
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf');
+}
+
+body {
+  border: 0;
+  margin: 0;
+}
+
+.title p {
+  font-family: ProductSans;
+  margin: 32px 16px 2px ;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+.content {
+  position: absolute;
+  height: 72px;
+  margin: 18px 16px 0 16px;
+  display: flex;
+  flex-direction: row;
+  float: left;
+}
+
+.content img {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+}
+
+.content div {
+  border: 0;
+  margin-left: 12px;
+  margin-right: 24px;
+}
+
+.content div p {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 9px;
+}
+
+.content iframe {
+  height: 10px;
+  width: 10px;
+}
+
+.content button {
+  background-color: #eef7fe;
+  width: 88px;
+  height: 32px;
+  margin: auto;
+  border-radius: 16px;
+  border: none;
+  color: #56b3fa;
+  text-align: center;
+  display: inline-block;
+}
