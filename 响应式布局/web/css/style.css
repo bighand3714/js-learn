@@ -15,6 +15,11 @@ body {
   margin: 0;
 }
 
+.root {
+  width: 728px;
+  margin: auto;
+}
+
 .title p {
   font-family: ProductSans;
   margin: 32px 16px 2px ;
@@ -23,8 +28,12 @@ body {
   color: #333;
 }
 
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .content {
-  position: absolute;
   height: 72px;
   margin: 18px 16px 0 16px;
   display: flex;
@@ -40,14 +49,23 @@ body {
 
 .content div {
   border: 0;
+  width: 136px;
   margin-left: 12px;
   margin-right: 24px;
+  overflow: hidden;white-space: nowrap;text-overflow:ellipsis
 }
 
 .content div p {
   font-family: Roboto;
+  height: 14px;
+  margin-top: 9px;
+  margin-bottom: 9px;
   font-size: 14px;
   line-height: 9px;
+}
+
+.content > div > p:first-child {
+  white-space: nowrap;
 }
 
 .content iframe {
