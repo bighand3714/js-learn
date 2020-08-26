@@ -7,10 +7,10 @@ var result = middle.map((item, index) => {
 console.log(result.join(' '))
 
 // 正则
-var result2 = str.match(/\s/g).map(item => {
+var result2 = str.split(/\s/g).map(item => {
   return item.split('').reverse().join('')
 }).join(' ')
-console.log(result)
+console.log(result2)
 
 const word_reverse = str => str.match(/\S+/g).reverse().join(' ')
 
