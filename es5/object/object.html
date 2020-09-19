@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object</title>
+</head>
+<body>
+  <script type='text/javascript'>
+    // Object本身的方法
+    Object.print = function() {
+      console.log('object.print')
+    }
+    var o = Object.print()
+
+    // Object的实例方法
+    Object.prototype.print = function(o) {
+      this.printResult = o
+      console.log(this.printResult)
+    }
+    var op = new Object()
+    op.toString = function() {
+      return 'toString: '
+    }
+    op.print('testResult')
+    console.log(
+      op.valueOf(),
+      op.valueOf() === op,
+      op.toString()
+    )
+    console.log(
+      Object.prototype.toString.call(3)
+    )
+
+    //Object的静态方法
+    var obj = ['obj1', 'obj2']
+    var obj2 = {
+      obj1: 'obj1',
+      obj2: 'obj2'
+    }
+    console.log(Object.keys(obj))
+    console.log(Object.getOwnPropertyNames(obj))
+    </script>
+</body>
+</html>
