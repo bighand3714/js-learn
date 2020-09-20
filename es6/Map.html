@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map</title>
+</head>
+
+<body>
+  <script>
+    const map = new Map([
+      ['name', 'Divel'],
+      ['title', 'Author'],
+    ])
+    console.log(
+      map.size,
+      map.has('name'),
+      map.get('name'),
+      map.has('title'),
+      map.get('title')
+    )
+
+    // Map转数组 ...
+    const myMap = new Map()
+      .set(true, 7)
+      .set({ foo: 3 }, ['abc'])
+    console.log([...myMap])
+
+    // Map转对象
+    function strMapToObj(strMap) {
+      let obj = Object.create(null)
+      for (let [key, value] of strMap) {
+        obj[key] = value
+      }
+      return obj
+    }
+    console.log(strMapToObj(myMap))
+    // 对象转Map
+    let obj = {'a': 1, 'b': 2}
+    let myMap2 = new Map(Object.entries(obj))
+    console.log(myMap2)
+  </script>
+</body>
+
+</html>
