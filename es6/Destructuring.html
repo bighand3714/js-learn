@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Destructuring</title>
 </head>
+
 <body>
   <script>
     // 模式匹配
@@ -16,7 +18,7 @@
     let [x, y, z] = new Set(['a', 'b', 'c'])
     console.log(x)
 
-    let [t1, t2='t2'] = ['t1', undefined]
+    let [t1, t2 = 't2'] = ['t1', undefined]
     console.log(t1, t2)
 
     // 惰性求值
@@ -26,12 +28,12 @@
     let [f1 = f()] = [1]
     console.log(f1)
 
-    let {fo, ba} = {fo: 'fo', ba: 'ba'}
+    let { fo, ba } = { fo: 'fo', ba: 'ba' }
     console.log(fo, ba)
 
-    let {log: logtest} = console
-    let obj = {first: 'hello', last: 'world'}
-    let {first: fi, last: la} = obj
+    let { log: logtest } = console
+    let obj = { first: 'hello', last: 'world' }
+    let { first: fi, last: la } = obj
     logtest(fi, la)
 
     let obj2 = {
@@ -42,14 +44,69 @@
         }
       ]
     }
-    let { p, p: [tx, {p2: ty}] } = obj2
+    let { p, p: [tx, { p2: ty }] } = obj2
     console.log(p, tx, ty)
 
     let obj3 = {}
-    let obj4 = {foo: 'bar'}
+    let obj4 = { foo: 'bar' }
     Object.setPrototypeOf(obj3, obj4)
-    const {foo: tfoo} = obj3
+    const { foo: tfoo } = obj3
     console.log(tfoo)
+
+    let xx
+    ({ xx } = { xx: 1 })
+    console.log(xx)
+    // 对数组
+    let arr = [1, 3, 4]
+    let { 0: first, [arr.length - 1]: last } = arr
+    console.log(first, last)
+    // 字符串
+    let [a1, b1, c1, d1, e1] = 'abcde'
+    console.log(a1, b1, c1, d1, e1)
+    let { length: len } = 'hello'
+    console.log(len)
+
+    // 函数参数的结构赋值
+    function add([x, y]) {
+      return x + y
+    }
+    console.log(add([1, 3]))
+
+    // 交换变量
+    let ch1 = 'change1'
+    let ch2 = 'change2'
+    // [ch1, ch2] = [ch2, ch1] ???
+    // 返回多个对象
+    function example() {
+      return {
+        re1: 'return1',
+        re2: 'return2',
+      }
+    }
+    let { re1: test1, re2: test2 } = example()
+    console.log(test1, test2)
+    // JSON
+    let jsonData = {
+      id: 42,
+      status: "OK",
+      data: [867, 5309]
+    }
+    let {id, status, data: num} = jsonData
+    console.log(id, status, num)
+    // 遍历Map结构
+    const map = new Map()
+    map.set('first', 'hello')
+    map.set('second', 'world')
+    for (let [key, value] of map) {
+      console.log(key + ' is ' + value)
+    }
+    for (let [key] of map) {
+      console.log(key)
+    }
+    for (let [value] of map) {
+      console.log(value)
+    }
   </script>
 </body>
+
 </html>
