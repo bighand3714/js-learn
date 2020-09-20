@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destructuring</title>
+</head>
+<body>
+  <script>
+    // 模式匹配
+    let [a, b, c] = [1, 2, 3]
+    console.log(a, b, c)
+    let [foo, [bar, [baz]]] = ['foo', ['bar', ['baz']]]
+    console.log(foo, bar, baz)
+
+    let [x, y, z] = new Set(['a', 'b', 'c'])
+    console.log(x)
+
+    let [t1, t2='t2'] = ['t1', undefined]
+    console.log(t1, t2)
+
+    // 惰性求值
+    function f() {
+      console.log('f')
+    }
+    let [f1 = f()] = [1]
+    console.log(f1)
+
+    let {fo, ba} = {fo: 'fo', ba: 'ba'}
+    console.log(fo, ba)
+
+    let {log: logtest} = console
+    let obj = {first: 'hello', last: 'world'}
+    let {first: fi, last: la} = obj
+    logtest(fi, la)
+
+    let obj2 = {
+      p: [
+        'HelloP',
+        {
+          p2: 'WorldP2',
+        }
+      ]
+    }
+    let { p, p: [tx, {p2: ty}] } = obj2
+    console.log(p, tx, ty)
+
+    let obj3 = {}
+    let obj4 = {foo: 'bar'}
+    Object.setPrototypeOf(obj3, obj4)
+    const {foo: tfoo} = obj3
+    console.log(tfoo)
+  </script>
+</body>
+</html>

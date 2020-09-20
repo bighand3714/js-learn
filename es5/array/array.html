@@ -74,6 +74,23 @@
       arr2.indexOf('1', 1),
       arr2.lastIndexOf('a')
     )
+
+    // 链式作用
+    var users = [
+      { name: 'tom', email: 'tom@example.com' },
+      { name: 'peter', email: 'peter@example.com' }
+    ];
+
+    users
+      .map(function (user) {
+        return user.email;
+      })
+      .filter(function (email) {
+        return /^t/.test(email);
+      })
+      .forEach(function (email) {
+        console.log(email);
+      });
   </script>
 </body>
 
