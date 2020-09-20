@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+</head>
+
+<body>
+  <script>
+    var arr = [1, 2, 3, [4, 5, 6]]
+
+    // 静态方法
+    console.log(Array.isArray(arr))
+
+    // 实例方法
+    console.log(
+      arr.valueOf(),
+      arr.toString()
+    )
+    console.log(
+      arr.push(true, {}),
+      arr.pop(),
+      [].pop(),
+    )
+    console.log(
+      arr.shift(),
+      arr.unshift('x'),
+    )
+    console.log(
+      arr.join("|"),
+    )
+    console.log(
+      arr.concat(['a', 'b'], ['z', 'y']),
+      arr,
+      arr.reverse(),
+    )
+    console.log(
+      arr.slice(-4, -1),
+      arr.splice(2, 1, 3),
+    )
+    var out = []  // ???
+    // [1, 3, 4].forEach(function(elem) {
+    //   this.push(elem * elem)
+    // }, out)
+    console.log(
+      arr.sort(),
+      arr.map((n) => {
+        return n + 1
+      }, arr),
+      out
+    )
+    var arr2 = [0, 1, 'a', false]
+    console.log(
+      arr2.filter(Boolean),
+      [5, 3, 2].some((elem, index, arr) => {
+        return elem > 3
+      }),
+      [5, 3, 2].every((elem, index, arr) => {
+        return elem > 3
+      }),
+    )
+    console.log(
+      arr2.reduce((a, b) => {
+        // console.log(a, b)
+        return a + b
+      }),
+      arr2.reduceRight((a, b) => {
+        return a + b
+      }),
+    )
+    console.log(
+      arr2.indexOf('1', 1),
+      arr2.lastIndexOf('a')
+    )
+  </script>
+</body>
+
+</html>
