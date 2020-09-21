@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy</title>
+</head>
+
+<body>
+  <script>
+    // 重载点运算符
+    var obj = new Proxy({}, {
+      get: function (target, propKey, receiver) {
+        console.log(`getting ${propKey}!`)
+        return Reflect.get(target, propKey, receiver)
+      },
+      set: function (target, propKey, value, receiver) {
+        console.log(`setting ${propKey}!`)
+        return Reflect.set(target, propKey, value, receiver)
+      }
+    })
+    obj.count = 1
+    ++obj.count
+
+    // 作为其他对象的原型对象
+    var proxy = new Proxy({}, {
+      get: function (target, handler) {
+        return 35
+      }
+    })
+    let pro = Object.create(proxy)
+    console.log(pro.pro)
+
+    // 拦截器函数
+    var handler = {
+      get: function (target, name) {
+        if (name === 'prototype') {
+          return Object.prototype;
+        }
+        return 'Hello, ' + name;
+      },
+      apply: function (target, thisBinding, args) {
+        return args[0];
+      },
+      construct: function (target, args) {
+        return { value: args[1] };
+      }
+    };
+    var fproxy = new Proxy(function (x, y) {
+      return x + y;
+    }, handler);
+    console.log(
+      fproxy(1, 2), // 1
+      new fproxy(1, 2), // {value: 2}
+      fproxy.prototype === Object.prototype,// true
+      fproxy.foo === "Hello, foo" // true
+    )
+
+    // get()
+    var person = {
+      name: 'divel',
+    }
+    var proxy = new Proxy(person, {
+      get: function(target, propKey) {
+        if (propKey in target) {
+          return target[propKey]
+        } else {
+          console.log(`throw new ReferenceError(prop name ${propKey} does not exist.)`)
+        }
+      }
+    })
+
+    console.log(proxy.r)
+  </script>
+</body>
+
+</html>
