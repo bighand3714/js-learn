@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reflect</title>
+</head>
+<body>
+  <script>
+    // 老写法
+    try {
+      Object.defineProperty(target, property, attributes) 
+    } catch(e) {
+      console.log('error: ', e)
+    }
+    // 新写法
+    if (Reflect.defineProperty(target, property, attributes)) {
+      // success
+    } else {
+      // failure
+    }
+  </script>
+</body>
+</html>
