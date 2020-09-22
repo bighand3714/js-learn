@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iterator</title>
+</head>
+<body>
+  <script>
+    // 解构赋值
+    let set = new Set().add('a').add('b').add('c')
+    let [x, y] = set
+    console.log(x, y)
+    let [first, ...rest] = set
+    console.log(first, rest)
+
+    // 拓展运算符
+    var str = 'hello'
+    console.log([...str])
+    let arr = ['b', 'c']
+    console.log(['a', ...arr, 'd'])
+
+    // yield*
+    let generator = function* () {
+      yield 1
+      yield* [2, 3, 4]
+      yield 5
+    }
+    var iterator = generator()
+    console.log(
+      iterator.next(),
+      iterator.next(),
+      iterator.next(),
+      iterator.next(),
+      iterator.next(),
+      iterator.next(),
+    )
+  </script>
+</body>
+</html>
