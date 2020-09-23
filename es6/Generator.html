@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator</title>
+</head>
+
+<body>
+  <script>
+    function* helloWorldGenerator() {
+      yield 'hello'
+      yield 'world'
+      return 'ending'
+    }
+    var hw = helloWorldGenerator()
+    console.log(
+      hw.next(),
+      hw.next(),
+      hw.next(),
+      hw.next()
+    )
+
+    function* gen() {
+      yield 123+456
+      return 'done'
+    }
+    var he = gen()
+    console.log(
+      he.next(),
+      he.next(),
+      he.next()
+    )
+
+    var arr = [1, [[2, 3], 4], 5, 6]
+    var flat = function* (a) {
+      var length = a.length
+      for (var i = 0; i < length; i++) {
+        var item = a[i]
+        if (typeof item !== 'number') {
+          yield* flat(item)
+        } else {
+          yield item
+        }
+      }
+    }
+    for (var f of flat(arr)) {
+      console.log(f)
+    }
+
+    // yield 圆括号
+    function* demo() {
+      console.log('Hello' + (yield))
+      console.log('Hello' + (yield 123))
+    }
+  </script>
+</body>
+
+</html>
