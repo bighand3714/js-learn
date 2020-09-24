@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetCode Test</title>
+</head>
+
+<body>
+  <script>
+    var twoSum = function (nums, target) {
+      for (let i = 0; i < nums.length; i++) {
+        for (let j = nums.length - 1; j > i; j--) {
+          if (nums[j] === target - nums[i]) {
+            return [i, j]
+          }
+        }
+      }
+      return -1
+    };
+    var nums = [1, 4, 7, 8]
+    var target = 11
+
+    console.log(twoSum(nums, target))
+  </script>
+</body>
+
+</html>
