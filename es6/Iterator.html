@@ -1,12 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iterator</title>
 </head>
+
 <body>
   <script>
+    // Iterator 遍历过程
+    // function makeIterator(array) {
+    //   var nextIndex = 0
+    //   return {
+    //     next: function() {
+    //       return nextIndex < array.length ? 
+    //         {'value': array[nextIndex++], 'done': false} :
+    //         {'value': undefined, 'done': true}
+    //     }
+    //   }
+    // }
+
+    // 简化
+    function makeIterator(array) {
+      var nextIndex = 0
+      return {
+        next: function () {
+          return nextIndex < array.length ?
+            { value: array[nextIndex++] } :
+            { done: true }
+        }
+      }
+    }
+    var it = makeIterator(['makeIterator1', 'makeIterator2'])
+    console.log(
+      it.next(),
+      it.next(),
+      it.next()
+    )
+
+    // 遍历器无限运行
+    function idMaker() {
+      var index = 0
+      return {
+        next: function () {
+          return { value: index++, done: false }
+        }
+      }
+    }
+    var it2 = idMaker()
+    console.log(
+      it2.next().value,
+      it2.next().value,
+      it2.next()
+    )
+
+    // for...of循环：Array, Map, Set, String, TypedArray, 函数的argument对象, NodeList对象
+    const obj = {
+      [Symbol.iterator]: function () {
+        return {
+          next: function () {
+            return {
+              value: 1,
+              done: true,
+            }
+          }
+        }
+      }
+    }
+    console.log(
+      obj[Symbol.iterator]().next(),
+      obj[Symbol.iterator]().next(),
+    )
+
+    // Symbol.iterator
+    let arr = ['arr1', 'arr2', 'arr3']
+    let iter = arr[Symbol.iterator]()
+    console.log(
+      iter.next(),
+      iter.next(),
+      iter.next(),
+      iter.next()
+    )
+
+    // for...of
+    class RangeIterator {
+      constructor(start, stop) {
+        this.value = start
+        this.stop = stop
+      }
+
+      [Symbol.iterator]() { return this }
+
+      next() {
+        var value = this.value
+        if (value < this.stop) {
+          this.value++
+          return { done: false, value: value }
+        }
+        return { done: true, value: undefined }
+      }
+    }
+    function range(start, stop) {
+      return new RangeIterator(start, stop)
+    }
+    for (let value of range(0, 3)) {
+      console.log(value)
+    }
+
+    // 遍历器实现指针
+    function Obj(value) {
+      this.value = value
+      this.next = null
+    }
+    Obj.prototype[Symbol.iterator] = function () {
+      var iterator = { next: next }
+      var current = this
+
+      function next() {
+        if (current) {
+          var value = current.value
+          current = current.next
+          return { done: false, value: value }
+        } else {
+          return { done: true }
+        }
+      }
+      return iterator
+    }
+    var one = new Obj(1)
+    var two = new Obj(2)
+    var three = new Obj(3)
+    one.next = two
+    two.next = three
+    for (var i of one) {
+      console.log(i)
+    }
+
+    // 为对象添加Iterator接口
+    let iterObj = {
+      data: ['Hello', 'world'],
+      [Symbol.iterator]() {
+        const self = this
+        let index = 0
+        return {
+          next() {
+            if (index < self.data.length) {
+              return {
+                value: self.data[index++],
+                done: false
+              }
+            } else {
+              return {value: undefined, done: true}
+            }
+          }
+        }
+      }
+    } 
+    for (var i of iterObj.data) {
+      console.log(i)
+    }
+
     // 解构赋值
     let set = new Set().add('a').add('b').add('c')
     let [x, y] = set
@@ -17,8 +171,8 @@
     // 拓展运算符
     var str = 'hello'
     console.log([...str])
-    let arr = ['b', 'c']
-    console.log(['a', ...arr, 'd'])
+    let arr2 = ['b', 'c']
+    console.log(['a', ...arr2, 'd'])
 
     // yield*
     let generator = function* () {
@@ -35,6 +189,24 @@
       iterator.next(),
       iterator.next(),
     )
+
+    // 遍历器的return(), throw()
+    function readLinesSync(file) {
+      return {
+        [Symbol.iterator]() {
+          return {
+            next() {
+              return {done: false}
+            },
+            return() {
+              file.close()
+              return {done: true}
+            }
+          }
+        }
+      }
+    }
   </script>
 </body>
+
 </html>
