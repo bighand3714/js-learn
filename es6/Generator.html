@@ -54,6 +54,91 @@
       console.log('Hello' + (yield))
       console.log('Hello' + (yield 123))
     }
+
+    // iterator
+    var myIterable = {}
+    myIterable[Symbol.iterator] = function* () {
+      yield 1
+      yield 2
+      yield 3
+    }
+    console.log([...myIterable])
+    console.log(...myIterable)
+
+    // next()
+    function* func() {
+      for (var i = 0; true; i++) {
+        var reset = yield i
+        if(reset) {i = -1}
+      }
+    }
+    var g = func()
+    console.log(
+      g.next(),
+      g.next(),
+      g.next(),
+      g.next(),
+      g.next(true),
+      g.next(),
+      g.next(),
+    )
+
+    function* dataConsumer() {
+      console.log('Started')
+      console.log(`1. ${yield}`)
+      console.log(`2. ${yield}`)
+      return 'result'
+    }
+    let genObj = dataConsumer()
+    genObj.next()
+    genObj.next('yield1')
+    genObj.next('yield2')
+    
+    // next() 首次调用赋值
+    function wrapper(generatorFunction) {
+      return function (...args) {
+        let generatorObject = generatorFunction(...args)
+        generatorObject.next()
+        return generatorObject
+      }
+    }
+    const wrapped = wrapper(function* () {
+      console.log(`First input: ${yield}`)
+      console.log(`Second input: ${yield}`)
+      return 'DONE'
+    })
+    wrapped().next('wrapped')
+    wrapped().next('hello') // ？
+
+    // 斐波那契数列 for...of
+    // function* fibonacci() {
+    //   let [prev, curr] = [0, 1]
+    //   for (;;) {
+    //     yield curr
+    //     [prev, curr] = [curr, prev + curr]
+    //   }
+    // }
+    // for (let n of fibonacci()) {
+    //   if (n > 10) break;
+    //   console.log(n)
+    // }
+
+    // yield*
+    function* foo() {
+      yield 'a'
+      yield 'b'
+    }
+    function* bar() {
+      yield 'x'
+      // for (let i of foo()) {
+      //   console.log(i)
+      // }
+      yield* foo()
+      yield 'y'
+    }
+    for (let v of bar()) {
+      console.log(v)
+    }
   </script>
 </body>
 
