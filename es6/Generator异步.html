@@ -60,15 +60,40 @@
     //   g.next(data)
     // })
 
-    fs.readFile(fileName, callback)
-    // Thunk
-    var Thunk = function (fileName) {
-      return function (callback) {
-        return fs.readFile(fileName, callback)
+    // fs.readFile(fileName, callback)
+    // // Thunk
+    // var Thunk = function (fileName) {
+    //   return function (callback) {
+    //     return fs.readFile(fileName, callback)
+    //   }
+    // }
+    // var readFileThunk = Thunk(fileName)
+    // readFileThunk(callback);
+
+    var isValid = function (s) {
+      const n = s.length;
+      if (n % 2 === 1) {
+        return false;
       }
-    }
-    var readFileThunk = Thunk(fileName)
-    readFileThunk(callback)
+      const pairs = new Map([
+        [')', '('],
+        [']', '['],
+        ['}', '{']
+      ]);
+      const stk = [];
+      s.split('').forEach(ch => {
+        if (pairs.has(ch)) {
+          if (!stk.length || stk[stk.length - 1] !== pairs.get(ch)) {
+            return false;
+          }
+          stk.pop();
+        }
+        else {
+          stk.push(ch);
+        }
+      });
+      return !stk.length;
+    };
   </script>
 </body>
 
