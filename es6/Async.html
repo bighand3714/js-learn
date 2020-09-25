@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async</title>
+</head>
+
+<body>
+  <script>
+    // const fs = require('fs')
+    // const readFile = function (fileName) {
+    //   return new Promise(function (resolve, reject) {
+    //     fs.readFile(fileName, function (err, data) {
+    //       if (err) {
+    //         return reject(err)
+    //       }
+    //       resolve(data)
+    //     })
+    //   })
+    // }
+    // const gen = function* () {
+    //   const f1 = yield readFile('/etc/fstab')
+    //   const f2 = yield readFile('/etc/shells')
+    //   console.log(f1.toString())
+    //   console.log(f2.toString())
+    // }
+
+    // async
+    // const asyncReadFile = async function () {
+    //   const f1 = await readFile('/etc/fstab')
+    //   const f2 = await readFile('/etc/shells')
+    //   console.log(f1.toString())
+    //   console.log(f2.toString())
+    // }
+
+    // 基本运用
+    // async function getStockPriceByName(name) {
+    //   const symbol = await getStockSymbol(name)
+    //   const stockPrice = await getStockPrice(symbol)
+    //   return stockPrice
+    // }
+    // getStockPriceByName('goog').then(function(result) {
+    //   console.log(result)
+    // })
+
+    // function timeout(ms) {
+    //   return new Promise((resolve) => {
+    //     setTimeout(resolve, ms)
+    //   })
+    // }
+    // async function asyncPrint(value, ms) {
+    //   await timeout(ms)
+    //   console.log(value)
+    // }
+    // asyncPrint('Hello world', 50)
+
+    // await
+    class Sleep {
+      constructor(timeout) {
+        this.timeout = timeout  
+      }
+      then(resolve, reject) {
+        const startTime = Date.now()
+        setTimeout(
+          () => resolve(Date.now() - startTime),
+          this.timeout  
+        )
+      }
+    }
+    (async () => {
+      const sleepTime = await new Sleep(1000)
+      console.log(sleepTime)
+    })()
+  </script>
+</body>
+
+</html>
