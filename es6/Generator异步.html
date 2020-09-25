@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../script/require.js"></script>
+  <title>Generator 异步</title>
+</head>
+
+<body>
+  <script>
+    // 回调函数 callback
+    // fs.readFile('/etc/passwd', 'utf-8', function(err, data) {
+    //   if (err) throw err
+    //   console.log(data)
+    // })
+
+    // promise, 解决 callback hell
+    // var readFile = require('fs-readfile-promise')
+    // readFile(fileA)
+    //   .then(function (data) {
+    //     console.log(data.toString())
+    //   })
+    //   .then(function () {
+    //     return readFile(fileB)
+    //   })
+    //   .then(function (data) {
+    //     console.log(data.toString())
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err)
+    //   })
+
+    // Generator coroutine
+    function* gen(x) {
+      try {
+        var y = yield x + 2
+      } catch (e) {
+        console.log(e)
+      }
+      return x
+    }
+    var g = gen(2)
+    console.log(g.next())
+    console.log(g.next())
+
+    // 异步封装
+    // var fetch = require('node-fetch')
+    // function* gen() {
+    //   var url = 'http://musicapi.leanapp.cn/search?keywords=hello'
+    //   var result = yield fetch(url)
+    //   console.log(result)
+    // }
+    // var g = gen()
+    // var result = g.next()
+    // result.value.then(function (data) {
+    //   return data.json()
+    // }).then(function (data) {
+    //   g.next(data)
+    // })
+
+    fs.readFile(fileName, callback)
+    // Thunk
+    var Thunk = function (fileName) {
+      return function (callback) {
+        return fs.readFile(fileName, callback)
+      }
+    }
+    var readFileThunk = Thunk(fileName)
+    readFileThunk(callback)
+  </script>
+</body>
+
+</html>
