@@ -53,6 +53,83 @@
     //     image.url = url
     //   })
     // }
+
+    // Ajax
+    const getJSON = function (url) {
+      const promise = new Promise(function (resolve, reject) {
+        const handler = function () {
+          if (this.readyState !== 4) {
+            return
+          }
+          if (this.status === 200) {
+            resolve(this.response)
+          } else {
+            reject(new Error(this.statusText))
+          }
+        }
+        const client = new XMLHttpRequest()
+        client.open("GET", url)
+        client.onreadystatechange = handler
+        client.responseType = "json"
+        client.setRequestHeader("Accept", "application/json")
+        client.send()
+      })
+      return promise
+    }
+    // getJSON("/posts.json").then(function (json) {
+    //   console.log("Contents: " + json)
+    // }, function (error) {
+    //   console.error('error!', error)
+    // })
+
+    // getJSON("/post/1.json").then(
+    //   post => getJSON(post.commentURL)
+    // ).then(
+    //   comments => console.log("resolved: ", comments),
+    //   err => console.log("rejected: ", err)
+    // )
+
+    // p.then((val) => console.log('fulfilled: ', val))
+    //   .catch((err) => console.log('rejected: ', err))
+    // p.then((val) => console.log('fulfilled: ', val))
+    //   .then(null, (err) => console.log('rejected: ', err))
+
+    // finally 实现
+    Promise.prototype.finally = function (callback) {
+      let P = this.constructor
+      return this.then(
+        value => P.resolve(callback()).then(() => value),
+        reason => P.resolve(callback()).then(() => { throw reason })
+      )
+    }
+
+    // Generator 与 Promise 结合
+    function getFoo () {
+      return new Promise(function (resolve, reject) {
+        resolve('foo')
+      })
+    }
+    const g = function* () {
+      try {
+        const foo = yield getFoo()
+        console.log(foo)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    function run (generator) {
+      const it = generator()
+      function go (result) {
+        if (result.done) return result.value
+        return result.value.then(function (value) {
+          return go(it.next(value))
+        }, function (error) {
+          return go(it.throw(error))
+        })
+      }
+      go(it.next())
+    }
+    run(g)
   </script>
 </body>
 
