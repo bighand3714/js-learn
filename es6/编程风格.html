@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>编程风格</title>
+</head>
+
+<body>
+  <script>
+    // const
+    const [a, b, c] = [1, 2, 3]
+
+    // string
+    const a = 'footbar'
+    const b = `this is ${a}.`
+
+    // 结构赋值
+    const [first, second] = arr
+    function getFullName({ firstName, secondName }) { }
+    function processInput(input) {
+      return { left, right, top, bottom }
+    }
+    const { left, right } = processInput(input)
+
+    // 对象
+    const a = { k1: 'k1', k2: 'k2' }
+    const b = {
+      k1: 'k1',
+      k2: 'k2',
+    }
+    // 对象静态化
+    const a = { x: null }
+    a.x = 3
+    Object.assign(a, { y: 4 })
+    // 属性表达式定义
+    const obj = {
+      id: 5,
+      name: 'San Francisco',
+      [getKey('enabled')]: true,
+    }
+
+    // 数组
+    const itemsCopy = [...items]
+
+    const foo = document.querySelectorAll('.foo')
+    const nodes = Array.from(foo)
+
+      // 函数
+      (() => {
+        console.log('Welcome to the Internet.')
+      })()
+
+    [1, 2, 4].map(x => x * x)
+
+    const boundMethod = (...params) => method.apply(this, params)
+
+    function divide(a, b, { option = false } = {}) { }
+
+    function concatenateAll(...args) {
+      return args.join('')
+    }
+
+    function handleThings(opts = {})
+
+    // class
+    class Queue {
+      constructor (contents = []) {
+        this._queue = [...contents]
+      }
+      pop() {
+        const value = this._queue[0]
+        this._queue.splice(0, 1)
+        return value
+      }
+    }
+    class PeekableQueue extends Queue {
+      peek() {
+        return this._queue
+      }
+    }
+  </script>
+</body>
+
+</html>
