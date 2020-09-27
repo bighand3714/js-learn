@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>读懂规格</title>
+</head>
+<body>
+  <script>
+    // Record --> field
+
+    // map实现
+    function ArrayMap(f, receiver) {
+      CHECK_OBJECT_COERCIBLE(this, "Array.prototype.map")
+      var array = TO_OBJECT(this)
+      var length = TO_LENGTH_OR_UINT32(array.length)
+      return InnerArrayMap(f, receiver, array, length)
+    }
+    function InnerArrayMap(f, receiver, array, length) {
+      if (!IS_CALLABLE(f)) {
+        throw MakeTypeError(kCallNonCallable, f)
+        var accumulator = new InternalArray(length)
+        var is_array = IS_ARRAY(array)
+        var stepping = DEBUG_IS_STEPPING(f)
+        for (var i = 0; i < length; i++) {
+          if (HAS_INDEX(array, i, is_array)) {
+            var element = array[i]
+            if (stepping) DebugPrepareStepInIfStepping(f)
+            accumulator[i] = _Call(f, receiver, element, i, array)
+          }
+        }
+        var result = new GlobalArray()
+        %MoveArrayContents(accumulator, result)
+        return result
+      }
+    }
+  </script>
+</body>
+</html>
