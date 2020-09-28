@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number</title>
+</head>
+
+<body>
+  <script>
+    parseInt('123') // 123
+    parseInt('   123') // 123
+    parseInt(1.23) // 1
+    parseInt('1.23') // 1
+    parseInt('8x') // 8
+    parseInt('.2') // NaN
+    parseInt('+3') // 3
+
+    parseInt('0x10') // 16
+    parseInt('011') // 11
+    parseInt('1e+21') // 1
+    parseInt('8e-7') // 8
+    parseInt('1000', 2) // 8
+
+    parseInt('10', 37) // NaN
+    parseInt('10', 1) // NaN
+    parseInt('10', 0) // 10
+    parseInt('10', null) // 10
+    parseInt('10', undefined) // 10
+
+    parseFloat('2.14')
+
+    isNaN(NaN)
+
+    isFinite(Infinity) // false
+    isFinite(-Infinity) // false
+    isFinite(NaN) // false
+    isFinite(undefined) // false
+    isFinite(null) // true
+    isFinite(-1) // true
+  </script>
+</body>
+
+</html>
