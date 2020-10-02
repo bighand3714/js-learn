@@ -19,7 +19,7 @@ module: {
   rules: [
     {
       test: /\.css$/,
-      use: ["style-loader"]
+      use: ["style-loader"],
     }
   ]
 }
