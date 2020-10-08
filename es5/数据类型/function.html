@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Function</title>
+</head>
+
+<body>
+  函数的声明：
+  function 命令： function print(s) {}
+  函数表达式：var print = function (s) {}
+  function 构造函数：var add = new Function(
+  'x',
+  'y',
+  'return x + y'
+  )
+  函数的重复声明：后覆盖前，前在任何时候都无效（函数名提升）
+
+  函数的属性和方法：
+  func.name: 返回函数的名字
+  f1.name // 'f1'
+  func.length: 预期传入参数个数，定义参数个数
+  func.toString(): 返回源码字符串
+
+  函数作用域：
+  全局变量：函数外部声明
+  局部变量：函数内部定义
+
+  参数：
+  提供的外部数据
+  允许省略参数
+  传递方式：
+  原始类型：传值传递，不会影响到外部
+  复合类型：传址传递，会影响到外部
+  *替换整个参数不影响原始值
+  同名取最后
+  arguments对象：函数内部才能使用
+  'use strict': 严格模式下修改arguments对象不会影响原参数
+  arguments.length: 判断函数调用时调用了几个参数
+  argumenst不是数组，需要方法转换为数组
+  arguments.callee: 返回对应的原函数，可以达到调用自身的目的，严格模式禁用
+
+  闭包：
+    链式作用域结构：子对象会一级一级向上寻找父对象的变量
+    作用：
+      不会被垃圾回收机制回收
+      封装对象的私有属性和私有方法
+  
+  立即调用的函数表达式：IIFE
+    () 跟在函数名之后就表示调用该函数
+    立即调用解决方法：不要出现在行首，放在圆括号里面
+      (funciton() {/* code */}()); // or
+      (funciton() {/* code */})(); // 分号必须，否则连续两个IIFE报错
+
+  eval命令
+    eval: 接受一个字符串并当语句运行
+      无法当作语句运行则报错
+      参数不是字符串则原样返回
+      严格模式下eval()内部声明的变量不会影响外部作用域
+        依然可读写当前作用域的变量
+      别名调用eval，eval内部一律是全局作用域
+  <script>
+    // // arguments 转换数组 slice方法和逐一填入法
+    // var array = Array.prototype.slice.call(arguments)
+
+    // // or
+    // var args = []
+    // for (var i = 0; i < arguments.length; i++) {
+    //   args.push(arguments[i])
+    // }
+
+    // 闭包
+    function f1() {
+      var n = 888
+      function f2() {
+        console.log(n)
+      }
+      return f2
+    }
+    var result = f1()
+    result()  // 闭包就是函数f2
+
+    // 闭包使得内部变量记住上一次调用时的运算结果
+    function createIncrementor(start) {
+      return function () {
+        return start++
+      }
+    }
+
+    var inc = createIncrementor(5)
+    inc() // 5
+    inc() // 6
+    inc() // 7
+
+    // 闭包作用2：封装对象的私有属性和私有方法
+    function Person(name) {
+      var _age;
+      function setAge(n) {
+        _age = n
+      }
+      function getAge() {
+        return _age
+      }
+      return {
+        name: name,
+        getAge: getAge,
+        setAge: setAge,
+      }
+    }
+    var p1 = Person('Zhang San')
+    p1.setAge(25)
+    console.log(p1.getAge())
+
+    // IIFE: 避免污染全局变量
+    (function () {
+      var tmp = newData
+      processData(tmp)
+      storeData(tmp)
+    }());
+  </script>
+</body>
+
+</html>
