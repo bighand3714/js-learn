@@ -8,7 +8,76 @@
 </head>
 
 <body>
+  1. 整数和浮点数
+    数字以64位浮点数形式储存：
+      1.0 === 1 // true
+    浮点数非精确值：
+      0.1 + 0.2 === 0.3 // false
+      0.3 / 0.1 === 2.9999999999999996
+      (0.3 - 0.2) === (0.2 - 0.1) // false
+  
+  数值精度
+    1位：符号位 0正 1负
+    2-12位/11位：指数位
+    13-64位/52位/小数部分（有效数字）
+    (-1)^符号位 * 1.xx...xx * 2^指数部分 精度最多53位 
+    范围：-2^53 - 2^53
+    超出范围整数运算出错，多出的有效数字无法保存（变0）
+
+  数值范围 2^1024 - 2^-1023
+  超出 Infinity 0
+  Number.MAX_VALUE // 1.7976931348623157e+308
+  Number.MIN_VALUE // 5e-324
+
+  2. 数值的表示法
+    35 十进制 0xFF 十六进制 
+    科学技术法 123e-3 // 0.123
+      自动转换科学技术法 小数点前21位，小数点后0多余5个
+    
+  3. 数值进制
+    八进制 0o/0O 十六进制 0x/0X 二进制 0b/0B 
+    默认自动转化十进制，出现超出进制数字报错
+
+  4. 特殊数值
+    +0 === -0 // true
+    (1 / +0) === (1 / -0) // false 当作分母时
+    
+  NaN Not a Number
+  typeof NaN // number
+  NaN === NaN // false 
+
+  Infinity 无穷
+
+  5. 数值相关的全局方法
+    parseInt() 
+    parseFloat() 
+    isNaN() 
+    isFinite() 返回布尔值判断是否为正常数值
+      false: Infinity, -Infinity, NaN, undefined
   <script>
+    1.0 === 1 // true
+    0.1 + 0.2 === 0.3 // false
+    0.3 / 0.1 === 2.9999999999999996
+    (0.3 - 0.2) === (0.2 - 0.1) // false
+    
+    Number.MAX_VALUE // 1.7976931348623157e+308
+    Number.MIN_VALUE // 5e-324
+
+    +0 === -0 // true
+    (1 / +0) === (1 / -0) // false 当作分母时
+
+    typeof NaN // number
+    NaN === NaN // false 
+
+    5 * Infinity // Infinity
+    5 - Infinity // -Infinity
+    Infinity / 5 // Infinity
+    5 / Infinity // 0
+
+    0 * Infinity // NaN
+    0 / Infinity // 0
+    Infinity / 0 // Infinity
+    
     parseInt('123') // 123
     parseInt('   123') // 123
     parseInt(1.23) // 1
