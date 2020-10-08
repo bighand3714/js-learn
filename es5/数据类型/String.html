@@ -6,7 +6,41 @@
   <title>String</title>
 </head>
 <body>
+  字符串概述
+    分行报错，反斜杠, +, 匿名函数
+  转义
+    \0 ：null（\u0000）
+    \b ：后退键（\u0008）
+    \f ：换页符（\u000C）
+    \n ：换行符（\u000A）
+    \r ：回车键（\u000D）
+    \t ：制表符（\u0009）
+    \v ：垂直制表符（\u000B）
+    \' ：单引号（\u0027）
+    \" ：双引号（\u0022）
+    \\ ：反斜杠（\u005C）
+  Unicode码点
+    \HHH 八进制 256种
+    \xHH 十六进制 256种
+    \uHHHH 十六进制
+  反斜杠无意义：自动省去
+  字符串与数组：
+    'hello'[2]  // 'l'
+    'hello'[9]  // undefined
+    无法对字符串进行增删
+  'string'.length 属性：无法改变，不会报错
+
+  字符集
+    Unicode：𝌆 U+1D306 | 0xD834 0xDF06
+
+  Base64转码 btoa(), atob()
   <script>
+    // 'a  // 分行报错
+    // b
+    // c'
+    'a\
+    b\
+    c'
     (function() {
       // line 1
       // line 2
