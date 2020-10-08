@@ -6,6 +6,34 @@
   <title>Object</title>
 </head>
 <body>
+  对象：键值对 key-value
+    键名：对象的键名又被称为“属性”，
+      键值可以是任何数据类型。
+      如果属性的值位函数，通常把这个属性称为“方法”，它可以像函数那样调用
+      如果属性的值还是一个对象则形成链式引用
+    对象的引用：不同变量名指向同一个对象，则指向同一内存地址，修改一个则改变其他所有变量
+      若取消某一变量对原对象的引用，不会影响另一个变量
+      原始类型的值为拷贝
+    表达式还是语句？
+      {} 无法确定一律作代码块
+      ({}) 解释为对象
+      eval对字符串求值：无()代码块，有()对象
+
+    属性
+    属性的读取：
+      . 点运算符
+      [''] 方括号运算符 键名需放在引号里
+    属性的查看：Object.keys(obj)
+    属性的删除：delete 成功后返回true
+    属性的存在：in 运算符，无法判断是来自自身还是继承
+      可以使用hasOwnProperty方法判断是否为对象自身的属性
+    属性的遍历：for ... in 循环
+
+  with 语句
+  with (对象) {
+    语句；
+  }    
+
   <script>
     var obj = {
       foo: 'Hello',
@@ -16,6 +44,7 @@
       'foo': 'Hello',
       'bar': 'World',
     }
+    Object.keys(obj) // ['foo', 'bar']
 
     var obj = {
       1: 'a',
@@ -27,11 +56,54 @@
     }
     
     var obj = {
-      p: "hello world"
+      p: function (x) {
+        return 3 * x
+      }
     }
+    obj.p(1) // 3
 
-    obj.p
-    obj['p']
+    var a1 = {}
+    var a2 = a1
+    a1 = 1
+    typeof a2   // {}
+
+    var x = 4
+    var y = 3
+    x = 2
+    y   // 3
+
+    {foo: 123}
+    ({foo: 123})
+    // ({console.log('error')}) // 报错
+
+    eval('{foo: 123}')
+    eval('({foo: 123})')
+
+    // 一种情况下属性不得删除
+    var obj = Object.defineProperty({}, 'p', {
+      value: 123,
+      configurable: false
+    })
+    obj.p // 123
+    delete obj.p // false
+
+    // in 运算符
+    var obj = {
+      p: 1
+    }
+    'p' in obj // true
+    'toString' in obj // true
+
+    // for ... in 循环
+    var obj = {
+      a: 1,
+      b: 2,
+      c: 3,
+    }
+    for (var i in obj) {
+      console.log('键名：', i)
+      console.log('键值：', obj[i])
+    }
   </script>
 </body>
 </html>
