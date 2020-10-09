@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>console与控制台</title>
+</head>
+
+<body>
+  console用途：
+    调试程序，显示错误
+    提供命令行接口，用来与网页互动
+  开发者工具：
+    Elements：查看网页的 HTML 源码和 CSS 代码。
+    Resources：查看网页加载的各种资源文件（比如代码文件、字体文件 CSS 文件等），以及在硬盘上创建的各种内容（比如本地缓存、Cookie、Local Storage等）。
+    Network：查看网页的 HTTP 通信情况。
+    Sources：查看网页加载的脚本源码。
+    Timeline：查看各种网页行为随时间变化的情况。
+    Performance：查看网页的性能情况，比如 CPU 和内存消耗。
+    Console：用来运行 JavaScript 命令。
+
+  console静态方法：
+    console.log(), console.info(), console.debug() // 输出信息
+    console.warn() // 黄三角, console.error() // 红叉
+    console.table() // 转表格显示
+    console.count() // 计数
+    console.dir(), console.dirxml() // 检查输出
+    console.assert() // 判断输出
+    console.time(), console.timeEnd() // 计时
+    console.group()，console.groupEnd()，console.groupCollapsed() // 信息分组
+    console.trace()，console.clear() // 堆栈中的调用路径
+
+  控制台命令API：
+    $_：返回上一个表达式的值
+    $0 - $4：保存了最近5个在 Elements 面板选中的 DOM 元素
+    $(selector)：返回第一个匹配的元素，等同于document.querySelector()
+    $$(selector)：返回选中的 DOM 对象，等同于document.querySelectorAll
+    $x(path)：方法返回一个数组，包含匹配特定 XPath 表达式的所有 DOM 元素
+    inspect(object)：方法打开相关面板，并选中相应的元素，显示它的细节
+    getEventListeners(object)：方法返回一个对象
+    keys(object)方法返回一个数组，包含object的所有键名。
+    values(object)方法返回一个数组，包含object的所有键值。
+    monitorEvents(object[, events])方法监听特定对象上发生的特定事件
+      monitorEvents允许监听同一大类的事件。所有事件可以分成四个大类
+        mouse："mousedown", "mouseup", "click", "dblclick", "mousemove", "mouseover", "mouseout", "mousewheel"
+        key："keydown", "keyup", "keypress", "textInput"
+        touch："touchstart", "touchmove", "touchend", "touchcancel"
+        control："resize", "scroll", "zoom", "focus", "blur", "select", "change", "submit", "reset"
+    lear()：清除控制台的历史。
+    copy(object)：复制特定 DOM 元素到剪贴板。
+    dir(object)：显示特定对象的所有属性，是console.dir方法的别名。
+    dirxml(object)：显示特定对象的 XML 形式，是console.dirxml方法的别名。
+
+  debugger // 调试
+  <script>
+    var languages = [
+      { name: "JavaScript", fileExtension: ".js" },
+      { name: "TypeScript", fileExtension: ".ts" },
+      { name: "CoffeeScript", fileExtension: ".coffee" }
+    ];
+    console.table(languages)
+    console.log('log: ', document.body)
+    console.dir(document.body)
+    console.dirxml(document.body)
+    console.warn('warn')
+    console.error('error')
+    console.assert(false, '判断条件不成立')
+    console.trace(Object)
+
+    // 计时
+    console.time('Array initialize');
+
+    var array = new Array(1000000);
+    for (var i = array.length - 1; i >= 0; i--) {
+      array[i] = new Object();
+    };
+
+    console.timeEnd('Array initialize');
+    // Array initialize: 1914.481ms
+
+    console.group('一级分组');
+    console.log('一级分组的内容');
+
+    console.group('二级分组');
+    console.log('二级分组的内容');
+
+    console.groupEnd(); // 二级分组结束
+    console.groupEnd(); // 一级分组结束
+  </script>
+</body>
+
+</html>
