@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegExp</title>
+</head>
+<body>
+  实例属性
+    RegExp.prototype.ignoreCase：返回一个布尔值，表示是否设置了i修饰符。
+    RegExp.prototype.global：返回一个布尔值，表示是否设置了g修饰符。
+    RegExp.prototype.multiline：返回一个布尔值，表示是否设置了m修饰符。
+    RegExp.prototype.flags：返回一个字符串，包含了已经设置的所有修饰符，按字母排序。
+    RegExp.prototype.lastIndex：返回一个整数，表示下一次开始搜索的位置。该属性可读写，但是只在进行连续搜索时有意义。
+      带有g修饰符时，正则表达式内部会记住上一次的lastIndex属性
+    RegExp.prototype.source：返回正则表达式的字符串形式（不包括反斜杠），该属性只读。
+    RegExp.prototype.test()：返回一个布尔值，表示当前模式是否能匹配参数字符串
+    RegExp.prototype.exec()：匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回null
+  
+  匹配规则
+    点字符(.)任意
+    位置字符(^)开始($)结束
+    选择符(|)或
+    转义符(\)  ^ . [ $ ( ) | * + ? { \
+      特殊字符:
+      \cX 表示Ctrl-[X]，其中的X是A-Z之中任一个英文字母，用来匹配控制字符。
+      [\b] 匹配退格键(U+0008)，不要与\b混淆。
+      \n 匹配换行键。
+      \r 匹配回车键。
+      \t 匹配制表符 tab（U+0009）。
+      \v 匹配垂直制表符（U+000B）。
+      \f 匹配换页符（U+000C）。
+      \0 匹配null字符（U+0000）。
+      \xhh 匹配一个以两位十六进制数（\x00-\xFF）表示的字符。
+      \uhhhh 匹配一个以四位十六进制数（\u0000-\uFFFF）表示的 Unicode 字符。
+    字符类([])任意匹配
+      脱字符([^])除了，包括所有
+      连字符([-])连续范围
+    预定义模式
+      \d 匹配0-9之间的任一数字，相当于[0-9]。
+      \D 匹配所有0-9以外的字符，相当于[^0-9]。
+      \w 匹配任意的字母、数字和下划线，相当于[A-Za-z0-9_]。
+      \W 除所有字母、数字和下划线以外的字符，相当于[^A-Za-z0-9_]。
+      \s 匹配空格（包括换行符、制表符、空格符等），相等于[ \t\r\n\v\f]。
+      \S 匹配非空格的字符，相当于[^ \t\r\n\v\f]。
+      \b 匹配词的边界。
+      \B 匹配非词边界，即在词的内部。
+    重复类{x, y}
+    量词符
+      ? 问号表示某个模式出现0次或1次，等同于{0, 1}。
+      * 星号表示某个模式出现0次或多次，等同于{0,}。
+      + 加号表示某个模式出现1次或多次，等同于{1,}
+    贪婪模式
+      +?：表示某个模式出现1次或多次，匹配时采用非贪婪模式。
+      *?：表示某个模式出现0次或多次，匹配时采用非贪婪模式。
+      ??：表格某个模式出现0次或1次，匹配时采用非贪婪模式。
+    修饰符
+      g: 则对象将匹配全部符合条件的结果，主要用于搜索和替换
+      i: 忽略大小写
+      m: 多行模式（multiline）
+    组匹配
+      (?:x)称为非捕获组（Non-capturing group）
+      x(?=y)称为先行断言（Positive look-ahead）
+      x(?!y)称为先行否定断言（Negative look-ahead）
+  <script>
+    // 两种方式
+    var regex = /xyz/i;
+    var regex = new RegExp('xyz', 'i');
+
+    /cat/.test('cats and dogs') // true
+
+    var r = /x/g;
+    var s = '_x_x';
+
+    r.lastIndex // 0
+    r.test(s) // true
+
+    r.lastIndex // 2
+    r.test(s) // true
+
+    r.lastIndex // 4
+    r.test(s) // false
+  </script>
+</body>
+</html>
