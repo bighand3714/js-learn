@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>错误处理机制</title>
+</head>
+
+<body>
+  Error实例对象
+    message：错误提示信息
+    name：错误名称（非标准属性）
+    stack：错误的堆栈（非标准属性）
+  SyntaxError对象：语法错误
+  ReferenceError对象：引用不存在的变量
+  RangeError对象：值超出有效范围
+    数组长度为负数，Number对象方法参数超出范围，函数堆栈超过最大值
+  TypeError：变量或参数非预期类型
+  URIError：URI相关函数的参数不正确
+    encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()、unescape()
+  EvalError：eval未被正确执行
+
+  都是构造函数，可被手动生成
+  自定义错误对象
+
+
+  <script>
+    var obj = {}
+    // 自定义错误对象
+    function UserError(message) {
+      this.message = message || 'default message'
+      this.name = 'UserError'
+    }
+    UserError.prototype = new Error()
+    UserError.prototype.constructor = UserError
+
+    // try ... catch 结构
+    try {
+      // throw 自定义错误 
+      throw new UserError('error!')
+    } catch (e) {
+      console.log(e.name + e.message)
+      console.log(e.stack)
+    } finally {
+      console.log('done!')
+    }
+
+    // try...catch...finally 执行顺序
+    function f() {
+      try {
+        console.log(0)
+        throw 'bug'
+      } catch(e) {
+        console.log(1)
+        return true // 这句原本会延迟到 finally 代码块结束再执行
+        console.log(2)  // 不执行
+      } finally {
+        console.log(3)
+        return false // 覆盖 catch 的 return
+        console.log(4)  // 不执行
+      }
+      console.log(5)  // 不执行
+    }
+  </script>
+</body>
+
+</html>
