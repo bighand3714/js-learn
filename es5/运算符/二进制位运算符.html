@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二进制位运算符</title>
+</head>
+<body>
+  二进制或：|
+  二进制与：&
+  二进制否：`
+  异或：^
+  左移：<<
+  右移：>>
+  头部补零右移：>>>
+
+  仅整数起作用
+  <script>
+    // 转32位整数
+    function toInt32 (x) {
+      return x | 0
+    }
+
+    0 | 3 // 3
+    2.9 | 0 // 2
+    0 & 3 // 0
+    ~ 3 // -4
+    ~~47.11 // 47
+    // 相当于 ~Number([])
+    ~[] // -1
+    4 << 1 // 8
+    // 右移模拟整除
+    21 >> 3 // 2  相当于 21 / 8 = 2
+  </script>
+</body>
+</html>
