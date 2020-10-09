@@ -6,6 +6,43 @@
   <title>Object</title>
 </head>
 <body>
+  Object：本身的方法+实例方法
+    本身的方法：定义在Object对象的方法，Object.print
+    实例方法：定义在Object原型对象Object.prototype上的方法，可以被Object实例直接使用
+  Object()
+    参数：
+      空，undefined，null：返回一个空对象
+      原始数据类型：转为对应的包装对象的实例
+      对象：返回该对象
+  构造函数
+  静态方法
+    Object.keys方法和Object.getOwnPropertyNames方法都用来遍历对象的属性。
+      只有涉及不可枚举属性时，才会有不一样的结果。Object.keys方法只返回可枚举的属性，
+      Object.getOwnPropertyNames方法还返回不可枚举的属性名。
+      计算对象属性个数的方法：Object.keys(obj).length // 2
+    对象属性模型的相关方法
+      Object.getOwnPropertyDescriptor()：获取某个属性的描述对象。
+      Object.defineProperty()：通过描述对象，定义某个属性。
+      Object.defineProperties()：通过描述对象，定义多个属性。
+    控制对象状态的方法
+      Object.preventExtensions()：防止对象扩展。
+      Object.isExtensible()：判断对象是否可扩展。
+      Object.seal()：禁止对象配置。
+      Object.isSealed()：判断一个对象是否可配置。
+      Object.freeze()：冻结一个对象。
+      Object.isFrozen()：判断一个对象是否被冻结。
+    原型链相关方法
+      Object.create()：该方法可以指定原型对象和属性，返回一个新的对象。
+      Object.getPrototypeOf()：获取对象的Prototype对象。
+  
+  实例方法
+    Object.prototype.valueOf()：返回当前对象对应的值。
+    Object.prototype.toString()：返回当前对象对应的字符串形式。
+      判断一个值的类型。Object.prototype.toString.call(value)
+    Object.prototype.toLocaleString()：返回当前对象对应的本地字符串形式。
+    Object.prototype.hasOwnProperty()：判断某个属性是否为当前对象自身的属性，还是继承自原型对象的属性。
+    Object.prototype.isPrototypeOf()：判断当前对象是否为另一个对象的原型。
+    Object.prototype.propertyIsEnumerable()：判断某个属性是否可枚举。
   <script type='text/javascript'>
     // Object本身的方法
     Object.print = function() {
@@ -31,6 +68,11 @@
     console.log(
       Object.prototype.toString.call(3)
     )
+    
+    // Object() 原始数据类型
+    var obj = Object('foo')
+    obj instanceof Object // true
+    obj instanceof String // true
 
     //Object的静态方法
     var obj = ['obj1', 'obj2']
@@ -40,6 +82,31 @@
     }
     console.log(Object.keys(obj))
     console.log(Object.getOwnPropertyNames(obj))
-    </script>
+
+    // 利用 toString() 判断数据类型
+    var type = function (o) {
+      var s = Object.prototype.toString.call(o)
+      return s.match(/\[object (.*?)\]/)[1].toLowerCase()
+    }
+    type([]) // "array"
+    // 专门判断某种数据类型的方法
+    [ 'Null',
+      'Undefined',
+      'Object',
+      'Array',
+      'String',
+      'Number',
+      'Boolean',
+      'Function',
+      'RegExp'
+    ].forEach(function (t) {
+      type['is' + t] = function (o) {
+        return type(o) === t.toLowerCase()
+      }
+    })
+    type.isObject({}) // true
+    type.isNumber(NaN) // true
+    type.isRegExp(/abc/) // true
+  </script>
 </body>
 </html>
