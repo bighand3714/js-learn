@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比较运算符</title>
+</head>
+<body>
+  > 大于运算符
+  '< 小于运算符'
+  '<= 小于或等于运算符'
+  >= 大于或等于运算符
+  == 相等运算符
+  === 严格相等运算符
+  != 不相等运算符
+  !== 严格不相等运算符
+
+  非相等运算符
+    字符串按字典顺序比较
+    原始数据转换数值比较
+    对象：
+      转换为原始数值比较
+      valueOf().toStirng()
+
+  严格相等运算符
+    对象比地址是否相同， >< 比较值
+  <script>  
+    +0 === -0 // true
+    undefined == null // true
+
+    // 相等运算符
+    const obj = {
+      valueOf: function () {
+        console.log('执行valueOf()')
+        // return obj   // 不执行toString()
+        return 'foo'
+      },
+      toStirng: function () {
+        console.log('执行toString()')
+        return 'foo'
+      },
+    }
+    console.log(
+      obj == 'foo',obj === 'foo'
+    )
+  </script>
+</body>
+</html>
