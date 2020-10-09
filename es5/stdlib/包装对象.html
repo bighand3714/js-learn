@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>包装对象</title>
+</head>
+
+<body>
+  Number.prototype.toFixed(n): 转指定位数小数，返回字符串
+  Number.prototype.toPrecision(n): 转指定位数的有效数字，范围1-100，四舍五入不靠谱
+  Number.prototype.toLocaleString(): 接受一个地区码作为参数，返回一个字符串，表示当前数字在该地区的当地书写形式
+
+  String.fromCharCode(): 该方法的参数是一个或多个数值，代表 Unicode 码点，返回值是这些码点组成的字符串
+  String.prototype.length: 返回字符串的长度
+  String.prototype.charAt(): 返回指定位置的字符
+  String.prototype.charCodeAt(): 返回字符串指定位置的 Unicode 码点（十进制表示）
+  String.prototype.concat(): 连接两个字符串，返回一个新字符串
+  String.prototype.slice(): 从原字符串取出子字符串并返回，不改变原字符串
+  String.prototype.substring(): 原字符串取出子字符串并返回，不改变原字符串，无顺序
+  String.prototype.substr(): 跟slice和substring方法的作用相同
+  String.prototype.indexOf(), String.prototype.lastIndexOf()
+  String.prototype.trim(): 除字符串两端的空格，返回一个新字符串
+  String.prototype.toLowerCase(), String.prototype.toUpperCase()
+  String.prototype.match(): 匹配某个子字符串，返回一个数组，成员为匹配的第一个字符串。如果没有找到匹配，则返回null
+  String.prototype.search(), String.prototype.replace()
+    search方法的用法基本等同于match，但是返回值为匹配的第一个位置。如果没有找到匹配，则返回-1。
+    replace方法用于替换匹配的子字符串，一般情况下只替换第一个匹配（除非使用带有g修饰符的正则表达式）
+  String.prototype.split(): split方法按照给定规则分割字符串，返回一个由分割出来的子字符串组成的数组
+    第二个参数，限定返回数组的最大成员数
+  String.prototype.localeCompare(): 比较两个字符串，返回结果，考虑自然语序
+  <script>
+    Number.POSITIVE_INFINITY // Infinity
+    Number.NEGATIVE_INFINITY // -Infinity
+    Number.NaN // NaN
+
+    Number.MAX_VALUE
+    // 1.7976931348623157e+308
+    Number.MAX_VALUE < Infinity
+    // true
+
+    Number.MIN_VALUE
+    // 5e-324
+    Number.MIN_VALUE > 0
+    // true
+
+    Number.MAX_SAFE_INTEGER // 9007199254740991
+    Number.MIN_SAFE_INTEGER // -9007199254740991
+  </script>
+</body>
+
+</html>
