@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实例对象与new</title>
+</head>
+<body>
+  构造函数
+    基于构造函数（constructor）和原型链（prototype）
+  
+  new 命令的原理
+    创建一个空对象，作为将要返回的对象实例
+    将这个空对象的原型，指向构造函数的prototype属性
+    将这个空对象赋值给函数内部的this关键字
+    开始执行构造函数内部的代码
+
+  new.target指向当前函数，否则为undefined
+  <script>
+    // new
+    var Vehicle = function (p) {
+      'use strict';  // 一旦忘了使用new命令，直接调用构造函数就会报错。
+      this.price = 1000
+      this.p = p
+    }
+    var v = new Vehicle(p)
+    v.price // 1000
+
+    var Vehicle = function (){
+      this.price = 1000;
+      return { price: 2000 };
+    };
+
+    (new Vehicle()).price
+    // 2000
+
+    function _new(/* 构造函数 */ constructor, /* 构造函数参数 */ params) {
+      // 将 arguments 对象转为数组
+      var args = [].slice.call(arguments);
+      // 取出构造函数
+      var constructor = args.shift();
+      // 创建一个空对象，继承构造函数的 prototype 属性
+      var context = Object.create(constructor.prototype);
+      // 执行构造函数
+      var result = constructor.apply(context, args);
+      // 如果返回结果是对象，就直接返回，否则返回 context 对象
+      return (typeof result === 'object' && result != null) ? result : context;
+    }
+
+    // 实例
+    var actor = _new(Person, '张三', 28);
+
+    // Object.create()
+    var person1 = {
+      name: '张三',
+      age: 38,
+      greeting: function() {
+        console.log('Hi! I\'m ' + this.name + '.');
+      }
+    };
+
+    var person2 = Object.create(person1);
+
+    person2.name // 张三
+    person2.greeting() // Hi! I'm 张三.
+  </script>
+</body>
+</html>
