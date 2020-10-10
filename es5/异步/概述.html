@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>异步操作</title>
+</head>
+<body>
+  单线程模型
+    单脚本主线程，其他线程配合
+    IO解决方案：事件循环（Event Loop）
+  同步/异步
+    异步：
+      回调函数
+      事件监听
+      发布/订阅 观察者模式
+  *异步流程控制
+    串行执行
+    并行执行
+    并行串行结合
+  任务队列/事件循环
+  <script>
+    // 回调函数
+    function f1 (callback) {
+      callback()
+    }
+    function f2 () {}
+    f1(f2)
+  </script>
+</body>
+</html>
