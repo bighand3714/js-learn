@@ -34,6 +34,7 @@
     原型链相关方法
       Object.create()：该方法可以指定原型对象和属性，返回一个新的对象。
       Object.getPrototypeOf()：获取对象的Prototype对象。
+      Object.setPrototypeof(现有对象, 原型对象)：为参数对象设置原型
   
   实例方法
     Object.prototype.valueOf()：返回当前对象对应的值。
@@ -43,6 +44,12 @@
     Object.prototype.hasOwnProperty()：判断某个属性是否为当前对象自身的属性，还是继承自原型对象的属性。
     Object.prototype.isPrototypeOf()：判断当前对象是否为另一个对象的原型。
     Object.prototype.propertyIsEnumerable()：判断某个属性是否可枚举。
+    Object.prototype.__proto__：返回该对象的原型
+      obj.__proto__ === Object.prototype  // true
+      obj.__proto__ === obj.constructor.prototype  // true
+
+  in运算符
+    in运算符返回一个布尔值，表示一个对象是否具有某个属性。它不区分该属性是对象自身的属性，还是继承的属性。
   <script type='text/javascript'>
     // Object本身的方法
     Object.print = function() {
@@ -107,6 +114,30 @@
     type.isObject({}) // true
     type.isNumber(NaN) // true
     type.isRegExp(/abc/) // true
+
+    // ***对象的拷贝
+    function copyObject(orig) {
+      var copy = Object.create(Object.getPrototypeOf(orig));
+      copyOwnPropertiesFrom(copy, orig);
+      return copy;
+    }
+
+    function copyOwnPropertiesFrom(target, source) {
+      Object
+        .getOwnPropertyNames(source)
+        .forEach(function (propKey) {
+          var desc = Object.getOwnPropertyDescriptor(source, propKey);
+          Object.defineProperty(target, propKey, desc);
+        });
+      return target;
+    }
+
+    function copyObject(orig) {
+      return Object.create(
+        Object.getPrototypeOf(orig),
+        Object.getOwnPropertyDescriptors(orig)
+      );
+    }
   </script>
 </body>
 </html>
