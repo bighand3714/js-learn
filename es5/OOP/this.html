@@ -33,9 +33,14 @@
     避免回调函数中的this
 
   绑定this
-    Function.prototype.call()
-    Function.prototype.apply()
-    Function.prototype.bind()
+    *Function.prototype.call(thisValue, arg1, arg2, ...)
+      参数：对象，默认全局对象
+        原始值会自动转换成对应的包装对象
+    *Function.prototype.apply()
+    *Function.prototype.bind()
+      bind()方法用于将函数体内的this绑定到某个对象，然后返回一个新函数
+      每次返回一个新函数
+      结合回调函数使用
   <script>
     // this的动态指向
     function f() {
@@ -51,6 +56,82 @@
     }
     A.describe() // name: sanA
     B.describe() // name: sanB
+
+    // call()
+    var obj = {}
+    var f = function () {
+      return this
+    }
+    f() === window // true
+    f.call(obj) === obj // true
+    // call调用原生方法
+    var obj = {}
+    obj.hasOwnProperty('toString') // false
+    // 覆盖原来的方法
+    obj.hasOwnProperty = function () {
+      return true
+    }
+    obj.hasOwnProperty('toStirng') // true
+
+    Object.prototype.hasOwnProperty.call(obj, 'toString') // false
+
+    // apply()
+    // 找出数组的最大元素
+    var a = [3, 5, 1, 4]
+    Math.max.apply(null, a) // 5
+    // 将数组的空元素变为undefined
+    Array.apply(null, ['a', , 'b']) // [ 'a', undefined, 'b' ]
+    // 转换类似数组的对象
+    Array.prototype.slice.apply({0: 1, length: 2}) // [1, undefined]
+
+    // bind
+    var counter = {
+      count: 0,
+      inc: function() {
+        this.count++;
+      }
+    }
+    var func = counter.inc.bind(counter)
+    func()
+    counter.count // 1
+
+    var obj = {
+      count: 100,
+    }
+    var func2 = counter.inc.bind(obj)
+    func2()
+    obj.count // 101
+
+    // 回调函数
+    var counter = {
+      count: 0,
+      inc: function() {
+        'use strict';
+        this.count++;
+      }
+    }
+    function CallIt(callback) {
+      callback()
+    }
+    CallIt(counter.inc.bind(counter))
+    counter.count // 1
+    
+    // forEach
+    var obj = {
+      name: 'san',
+      times: [1, 3, 4],
+      print: function () {
+        this.times.forEach(function (n) {
+          console.log(this.name)
+        }.bind(this))
+      }
+    }
+    // *结合call()
+    [1, 3, 4].slice(0, 1) // [1]
+    Array.prototype.slice.call([1, 2, 3], 0, 1)
+    // bind 改写
+    var slice = Function.prototype.call.bind(Array.prototype.slice)
+    slice([1, 2, 3], 0, 1)
   </script>
 </body>
 </html>
