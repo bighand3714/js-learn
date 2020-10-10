@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this</title>
+</head>
+<body>
+  this：总是返回一个对象
+    构造函数：代指实例对象
+  
+  原始的对象以字典结构保存
+  引擎会将函数单独保存在内存中，然后再将函数的地址赋值给foo属性的value属性
+    函数是一个单独的值，所以它可以在不同的环境（上下文）执行
+  JavaScript 允许在函数体内部，引用当前环境的其他变量。
+  所以需要有一种机制，能够在函数体内部获得当前的运行环境（context）: -> this
+  this就出现了，它的设计目的就是在函数体内部，指代函数当前的运行环境。
+
+  this使用环境
+    全局环境：Window
+    构造函数：实例对象
+    对象的方法：方法运行时所在的对象
+      不在第一层仅指向上一层
+      嵌套对象内部的方法赋值给一个变量，this依然会指向全局对象
+  
+  this注意点：
+    避免多层this：
+      使用that指向外层this
+      严格模式下，如果函数内部的this指向顶层对象，就会报错
+    避免map, forEach使用this
+      中间变量that固定this
+      this当作第二参数，固定它的运行环境
+    避免回调函数中的this
+
+  绑定this
+    Function.prototype.call()
+    Function.prototype.apply()
+    Function.prototype.bind()
+  <script>
+    // this的动态指向
+    function f() {
+      return `name: ${this.name}`
+    }
+    var A = {
+      name: 'sanA',
+      describe: f,
+    }
+    var B = {
+      name: 'sanB',
+      describe: f,
+    }
+    A.describe() // name: sanA
+    B.describe() // name: sanB
+  </script>
+</body>
+</html>
