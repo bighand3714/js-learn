@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浏览器环境概述</title>
+</head>
+<body>
+  script设值：text/javascript 老 application/javascript 新
+  事件属性（onclick，onmouseover）可插入JavaScript代码
+  URL协议：添加javascript:
+  浏览器工作原理
+    一边加载HTML一边加载JAVASCRIPT
+    浏览器发现 script 元素，暂停解析，交给javascript引擎
+    如果 script 元素引用了外部脚本，就下载该脚本再执行，否则就直接执行代码
+    JavaScript 引擎执行完毕，控制权交还渲染引擎，恢复往下解析 HTML 网页
+  defer
+    延迟脚本的执行，等到 DOM 加载生成后，再执行脚本
+    有了defer属性，浏览器下载脚本文件的时候，不会阻塞页面渲染。下载的脚本文件在DOMContentLoaded事件触发前执行（即刚刚读取完 /html 标签）
+  async
+    async属性可以保证脚本下载的同时，浏览器继续渲染
+    无法保证脚本的执行顺序
+  如果脚本之间没有依赖关系，就使用async属性，如果脚本之间有依赖关系，就使用defer属性。如果同时使用async和defer属性，后者不起作用，浏览器行为由async属性决定
+</body>
+</html>
