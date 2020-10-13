@@ -71,6 +71,9 @@
     Node.prototype.getRootNode()
       返回当前节点所在文档的根节点document，与ownerDocument属性的作用相同
   <script>
+    document.nodeType // 9
+    document.nodeType === Node.DOCUMENT_NODE // true
+
     var p = document.createElement('p')
     document.body.appendChild(p)
   </script>

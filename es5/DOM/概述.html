@@ -21,6 +21,27 @@
     父节点关系（parentNode）：直接的那个上级节点
     子节点关系（childNodes）：直接的下级节点
     同级节点关系（sibling）：拥有同一个父节点的节点
+
+  Node节点
+    document,
+    document.getElementById('id'),
+    document.documentElement.firstChild,
+  NodeList接口：类似数组的对象，它的成员是节点对象
+    Node.childNodes,
+    document.querySelectorAll(),
+  HTMLCollection接口：节点对象的集合，只能包含元素节点（element），不能包含其它类型的节点
+    document.links,
+    document.forms,
+    document.images,
+  ParentNode接口，ChildNode接口
+  Document节点
+    document / window.document,
+    iframe.contentDocument,
+    Ajax: XMLHttpRequest.responseXML,
+    ownerDocument,
+  Element节点：网页的HTML元素
+
+  Mutation Observer API 用来监视 DOM 变动。DOM 的任何变动，比如节点的增减、属性的变动、文本内容的变动，这个 API 都可以得到通知
   <script>
     
   </script>
