@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+</head>
+<body>
+  Promise状态
+    pending：异步操作未完成
+    fulfilled：异步操作成功
+    rejected：异步操作失败
+    resolved：已定型，后二
+    变化途径
+      未完成 -> 成功
+      未完成 -> 失败
+
+  Promise.prototype.then()
+    添加回调函数
+    可以链式调用
+  <script>
+    // Promise 构造函数
+    var promise = new Promise(function (resolve, reject) {
+      // ...
+      if (true /* 异步成功 */) {
+        resolve(value)
+      } else { /* 异步失败 */
+        reject(new Error())
+      }
+    })
+
+    // Promise图片加载
+    var preloadImage = function (path) {
+      return new Promise(function (resolve, reject) {
+        var image = new Image()
+        image.onload = resolve
+        image.onerror = reject
+        image.src = path
+      })
+    }
+  </script>
+</body>
+</html>
