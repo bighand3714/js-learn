@@ -8,6 +8,15 @@
 </head>
 
 <body>
+  Iterator: 遍历器 -> Array, Object, Map, Set
+    统一接口：为各种不同的数据结构提供统一的访问机制
+    使得数据结构的成员能够按某种次序排列
+    主要供for...of循环
+  Iterator遍历过程：
+    创建一个指针对象，指向当前数据结构的起始位置。遍历器本质就是一个指针对象
+    第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员
+    第二次调用指针对象的next方法，指针指向数据结构的第二个成员
+    不断调用指针对象的next方法，直到它指向数据结构的结束位置
   <script>
     // Iterator 遍历过程
     // function makeIterator(array) {
