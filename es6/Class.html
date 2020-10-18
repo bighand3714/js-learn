@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class</title>
+</head>
+
+<body>
+  ES6 的class可以看作只是一个语法糖
+    constructor方法: 这就是构造方法，而this关键字则代表实例对象
+    定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。
+    ES6 的类，完全可以看作构造函数的另一种写法
+    类的所有方法都定义在类的prototype属性上面
+    类的内部所有定义的方法，都是不可枚举的（non-enumerable）
+    Object.assign方法可以很方便地一次向类添加多个方法
+  constructor:
+    通过new命令生成对象实例时，自动调用该方法，如果没有显式定义，一个空的constructor方法会被默认添加
+    constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象
+    类必须使用new调用，否则会报错
+  类的实例
+    类必须使用new调用，否则会报错
+    与 ES5 一样，实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
+    与 ES5 一样，类的所有实例共享一个原型对象
+    与 ES5 一样，在“类”的内部可以使用get和set关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为
+    与函数一样，类也可以使用表达式的形式定义。
+    采用 Class 表达式，可以写出立即执行的 Class
+  注意点；
+    类和模块内部默认严格模式
+    类不存在变量提升
+    name属性：返回紧跟在class关键字后面的类名
+    Generator函数：如果某个方法之前加上星号（*），就表示该方法是一个 Generator 函数
+    this指向：类的方法内部如果含有this，它默认指向类的实例
+  静态属性：
+    静态属性指的是 Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性
+  <script>
+    // 传统方法
+    function Point(x, y) {
+      this.x = x
+      this.y = y
+    }
+    Point.prototype.toString = function () {
+      return `(${this.x}, ${this.y})`
+    }
+    var p = new Point(1, 2)
+
+    // class 改写
+    class Point {
+      constructor(x, y) {
+        this.x = x 
+        this.y = y 
+      }
+      toString() {
+        return `(${this.x}, ${this.y})`
+      }
+    }
+    // ES6 的类，完全可以看作构造函数的另一种写法
+    typeof Point // "function" 
+    Point === Point.prototype.constructor // true
+
+    // Object.assign方法可以很方便地一次向类添加多个方法
+    Object.assign(Point.prototype, {
+      toString() {},
+      toValue() {}
+    })
+
+    // constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象
+    class Foo {
+      constructor() {
+        return Object.create(null)
+      }
+    }
+    new Foo() instanceof Foo // false
+
+    // 定义类
+    class Point {
+      constructor(x, y) {
+        this.x = x
+        this.y = y 
+      }
+      toString() {
+        return `(${this.x}, ${this.y})`
+      }
+    }
+    var point = new Point(2, 4)
+    point.toString() // (2, 4)
+    point.hasOwnProperty('x')  // true
+    point.hasOwnProperty('y')  // true
+    point.hasOwnProperty('toString') // false
+    point.__proto__.hasOwnProperty('toString') // true
+    // 共享原型
+    p1.__proto__ === p2.__proto__ // true
+
+    // getter & setter
+    class MyClass {
+      constructor() {
+        // ...
+      }
+      get prop() {
+        return 'getter'
+      }
+      set prop(value) {
+        console.log('setter: ', value)
+      }
+    }
+    let inst = new MyClass()
+    inst.prop = 123; // 'setter: 123'
+    inst.prop // 'getter'
+
+    // class 表达式
+    const MyClass = class me {
+      getClassName() {
+        return Me.name  // Me只在 Class 的内部可用，指代当前类
+      }
+    }
+
+    // 采用 Class 表达式，可以写出立即执行的 Class
+    let person = new class {
+      constructor(name) {
+        this.name = name
+      }
+
+      sayName() {
+        console.log(this.name)
+      }
+    }('zhuangsan');
+    person.sayName()  // zhangsan
+
+    // this指向问题
+    class Logger {
+      printName(name = 'there') {
+        this.print(`hello ${name}.`)
+      }
+      print(text) {
+        console.log(text)
+      }
+    }
+    const logger = new Logger()
+    const { printName } = logger
+    printName(); // TypeError: Cannot read property 'print' of undefined  
+    // 将这个方法提取出来单独使用，this会指向该方法运行时所在的环境
+
+    // 解决方法是，在构造方法中绑定this
+    class Logger {
+      constructor() {
+        this.printName = this.printName.bind(this)
+      }
+      // ...
+    }
+    // 另一种解决方法是使用箭头函数
+    class Obj {
+      constructor() {
+        this.getThis = () => this;
+      }
+    }
+    const myObj = new Obj() 
+    myObj.getThis() === Obj // true
+    // 还有一种解决方法是使用Proxy，获取方法的时候，自动绑定this
+
+    // 静态属性指的是 Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性
+    class Foo {}
+    Foo.props = 1
+    Foo.props // 1
+
+    
+  </script>
+</body>
+
+</html>
