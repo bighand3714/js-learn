@@ -84,3 +84,10 @@ body {
   text-align: center;
   display: inline-block;
 }
+
+.content button {
+  background-color: #eeffee;
+  width: 34px;
+  height: 45px;
+  margin: 17px;
+}
