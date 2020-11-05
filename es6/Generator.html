@@ -12,6 +12,28 @@
     ES6的异步编程解决方案
     状态机，封装了多个内部状态
     执行Generator函数返回一个遍历器对象
+    普通函数中使用yield表达式，结果产生一个句法错误
+    yield表达式如果用在另一个表达式之中，必须放在圆括号里面
+
+    可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口
+    Generator 函数执行后，返回一个遍历器对象
+
+    yield表达式本身没有返回值，或者说总是返回undefined。
+    next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
+    通过next方法的参数，就有办法在 Generator 函数开始运行之后，继续向函数体内部注入值。
+    第二次运行next方法的时候不带参数
+    由于next方法的参数表示上一个yield表达式的返回值，所以在第一次使用next方法时，传递参数是无效的。从语义上讲，第一个next方法用来启动遍历器对象，所以不用带有参数。
+
+    原生的 JavaScript 对象没有遍历接口，无法使用for...of循环，通过 Generator 函数为它加上这个接口，就可以用了。
+
+    next()、throw()、return()这三个方法本质上是同一件事，可以放在一起理解。它们的作用都是让 Generator 函数恢复执行，并且使用不同的语句替换yield表达式。
+
+    如果在 Generator 函数内部，调用另一个 Generator 函数。需要在前者的函数体内部，自己手动完成遍历。
+    ES6 提供了yield*表达式，作为解决办法，用来在一个 Generator 函数里面执行另一个 Generator 函数。
+
+    Generator 与状态机 
+    Generator 与协程
+    协程（coroutine）是一种程序运行的方式，可以理解成“协作的线程”或“协作的函数”。协程既可以用单线程实现，也可以用多线程实现。前者是一种特殊的子例程，后者是一种特殊的线程。
   <script>
     function* helloWorldGenerator() {
       yield 'hello'
@@ -128,6 +150,7 @@
     // }
 
     // yield*
+    // 如果在 Generator 函数内部，调用另一个 Generator 函数。需要在前者的函数体内部，自己手动完成遍历。
     function* foo() {
       yield 'a'
       yield 'b'
@@ -142,6 +165,18 @@
     }
     for (let v of bar()) {
       console.log(v)
+    }
+
+    // 原生的 JavaScript 对象没有遍历接口，无法使用for...of循环，通过 Generator 函数为它加上这个接口，就可以用了。
+    function* objectEntries(obj) {
+      let propKeys = Reflect.ownKeys(obj)
+      for (let propKey of propKeys) {
+        yield [propKey, obj[propKey]]
+      }
+    }
+    let jane = {first: 'Jane', last: 'Doe'}
+    for (let [key, value] of objectEntries(jane)) {
+      console.log(`${key}: ${value}`)
     }
   </script>
 </body>
