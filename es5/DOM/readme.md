@@ -234,4 +234,4 @@ window.matchMedia()
 ## Mutation Observer API
 MutationObserver 的实例方法
   observe()
-  disconnect()，takeRecords（）
+  disconnect()，takeRecords()
