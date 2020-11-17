@@ -226,6 +226,36 @@
         }
       })
     }
+
+    // for jianshu
+    // target: test, key: name, value: 'namme'
+    let test = {
+      name: 'namme',
+      key: 'keyy',
+    }
+    test = new Proxy(test, {
+      get(target, key) {
+        let result = target[key]
+        if (key === 'name') {
+          result = 'name: ' + result
+        } else if (key === 'key') {
+          result = 'key: ' + result
+        }
+        return result
+      },
+      set(target, key, value) {
+        // if (key === 'age' && typeof value !== 'string') {
+        //   throw Error("It's not a string!")
+        // }
+        console.log(typeof value)
+        if (key === 'key' && typeof value !== 'number') {
+          throw Error("It's not a number!")
+        }
+        return Reflect.set(target, key, value)
+      }
+    })
+    console.log(test.key, test.name)
+    test.key = '1'
   </script>
 </body>
 
